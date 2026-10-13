@@ -1,0 +1,45 @@
+{
+    "_comment": "Team-wide Claude Code settings. Personal overrides go in settings.local.json. Hooks are Node ports of the a4c fish hooks; exec form (command + args) per code.claude.com/docs/en/hooks, checked 2026-09-29.",
+    "attribution": {
+        "commit": "",
+        "pr": ""
+    },
+    "hooks": {
+        "SessionStart": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "node",
+                        "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/session-start.mjs"],
+                        "timeout": 10
+                    }
+                ]
+            }
+        ],
+        "UserPromptSubmit": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "node",
+                        "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/user-prompt-submit.mjs"],
+                        "timeout": 10
+                    }
+                ]
+            }
+        ],
+        "Stop": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "node",
+                        "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/stop.mjs"],
+                        "timeout": 10
+                    }
+                ]
+            }
+        ]
+    }
+}
