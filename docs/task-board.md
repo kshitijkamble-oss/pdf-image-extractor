@@ -38,3 +38,16 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 4. Blob-mode local run | done | — (mentor) | Blob URL returned, image 200 image/png, no new uploads/ folder |
 | B. PR preview check | done | — (mentor, browser + CLI) | PR #17 preview: health 200, upload 201, Blob image 200; logs clean except known warnings |
 | C. Backlog item for Blob cleanup | done | — (mentor) | b-20261014-011 |
+
+## 2026-10-14 — vercel-frontend-hosting (b-20261014-010, #13)
+
+| Task | Status | Mentee | Notes |
+|------|--------|--------|-------|
+| 0. Plan Vercel Services setup | done | mentee 12 (planner) — retired | 7 tasks, config only; build facts re-checked; waiting for user OK |
+| 1. Add vercel.json | done | mentee 13 (builder) — retired | lint/typecheck/build pass; dev page + proxy 200; slugs `vite`/`nestjs` checked in vercel/vercel source |
+| 2. Local `vercel build` (optional) | skipped | — (mentor) | would use current settings (root `apps/backend`), so it cannot see the new vercel.json |
+| 3. Push, open PR, ask OK for settings | in progress | — (mentor) | |
+| 4. Change settings, redeploy preview | waiting | — (mentor) | needs user OK |
+| 5. Fix vercel.json (if needed) | waiting | — | only if 4 fails |
+| 6. Preview check | waiting | — (mentor, browser) | |
+| 7. Production check after user merges | waiting | — (mentor) | |
