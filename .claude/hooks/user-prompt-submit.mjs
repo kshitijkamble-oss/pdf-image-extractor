@@ -71,6 +71,24 @@ if (implPhrases.some(has) && !trivialPhrases.some(has)) {
             'Per rule **work-needs-plan** (must): consider `/backlog add` + `/arc start` before writing code. Skip only if this is a typo, one-line fix, or direct question.',
         );
     }
+
+    const hasIssueRef = /(^|\s)#\d+\b|github\.com\/[^\s]+\/issues\/\d+/.test(promptLc);
+    const ids = [...promptLc.matchAll(/b-\d{8}-\d+/g)].map((m) => m[0]);
+    const backlog = ids.length > 0 ? readText(join(root, 'docs', 'backlog.md')) : '';
+    const unfiled = ids.filter((id) => {
+        const item = backlog.split(/^## /m).find((s) => s.includes(`id: ${id}`));
+        return !item || !/\*\*gh-issue:\*\*\s*(https:\/\/|n\/a)/.test(item);
+    });
+    if ((!hasIssueRef && ids.length === 0 && activeArcs.length === 0) || unfiled.length > 0) {
+        out.push(
+            '## Nudge: no GitHub issue?',
+            unfiled.length > 0
+                ? `Backlog item(s) ${unfiled.join(', ')} have no \`gh-issue\` URL.`
+                : 'This prompt looks like implementation work, but references **no GitHub issue** (`#123` or an issue URL) and there is no active arc.',
+            '',
+            'Per rule **issue-before-work** (must): file the issue with `gh issue create` and record it on the backlog item before writing code.',
+        );
+    }
 }
 
 if (out.length > 0) console.log(out.join('\n'));

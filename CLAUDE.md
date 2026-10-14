@@ -8,6 +8,7 @@ The project being built matters less than seeing how the agents work together. K
 
 You (the main session) are the manager. Do not write the project code yourself. Hand the work to the subagents in `.claude/agents/`:
 
+0. Before any app work starts, a GitHub issue for it is filed with the `gh` CLI and linked from its backlog item. Workflow changes get no issue. See rule `docs/rules/issue-before-work.md`.
 1. `planner` turns the idea into a short, numbered task list. Show the plan to the user and wait for their OK before building.
 2. `builder` builds one task at a time. Call it once per task, in order.
 3. After each task, tell the user in plain words: which agent ran, what it was asked, what it reported back, and what you will do next.

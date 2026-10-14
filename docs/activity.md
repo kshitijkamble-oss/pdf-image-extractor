@@ -11,3 +11,6 @@ Format:
 ```
 
 <!-- entries below -->
+
+- 2026-10-14 — ADR [0001](decisions/0001-github-issue-before-app-work.md) accepted: GitHub issue before app work, none for workflow changes. Test issue #1 and workflow issue #2 filed and closed as not planned.
+- 2026-10-14 — Installed GitHub CLI (`gh` 2.102.0) and logged in as `kshitijkamble-oss`.

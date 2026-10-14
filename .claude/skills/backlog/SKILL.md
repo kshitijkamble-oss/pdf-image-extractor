@@ -13,11 +13,11 @@ hand-editing the file is still allowed and expected.
 | Form                              | Behavior                                                       |
 |-----------------------------------|----------------------------------------------------------------|
 | `/backlog`                        | Same as `/backlog list open`.                                  |
-| `/backlog add <tag> <statement>`  | Append a new item. Assigns next `id`. Confirm before writing.  |
+| `/backlog add <tag> <statement>`  | Append a new item. Assigns next `id`. Confirm before writing. Then file its GitHub issue (below). |
 | `/backlog list [status]`          | Print id, tag, status, slug, 1-line statement (no bodies).     |
 | `/backlog show <id-or-slug>`      | Print full item.                                               |
-| `/backlog done <id>`              | Flip to `done`. Add a one-line outcome note.                   |
-| `/backlog drop <id> <reason>`     | Flip to `dropped` with the reason inline.                      |
+| `/backlog done <id>`              | Flip to `done`. Add a one-line outcome note. Close the issue with that note. |
+| `/backlog drop <id> <reason>`     | Flip to `dropped` with the reason inline. Close the issue as `not planned`. |
 
 To flip status to `in-progress`, edit the item directly — that's what
 `/arc start` is for, and it's a one-field change.
@@ -26,6 +26,21 @@ To flip status to `in-progress`, edit the item directly — that's what
 
 `b-YYYYMMDD-NNN` where `NNN` is the next zero-padded counter for that date.
 Compute by grepping existing ids in `docs/backlog.md` — don't guess.
+
+## GitHub issue (rule `issue-before-work`)
+
+Every item for app work (`apps/`, `packages/`) has one GitHub issue, filed
+with `gh` right after the item is written (same confirmation covers both).
+Workflow items (`.claude/`, `docs/`, `CLAUDE.md`) get `**gh-issue:** n/a`
+and no issue.
+
+1. `gh auth status` — if `gh` is missing or logged out, write the item with
+   `**gh-issue:** pending`, tell the user, and do not start work on it.
+2. `gh issue create --title "<statement>" --body "<what & why. Backlog: <id>. Tag: <tag>>"`
+3. Put the printed URL in the item's `**gh-issue:**` field.
+
+On `done`: `gh issue close <n> --comment "<outcome>"`.
+On `drop`: `gh issue close <n> --reason "not planned" --comment "<reason>"`.
 
 ## Suggest-on-keyword (passive mode)
 
@@ -50,6 +65,7 @@ the same turn.
 - **status:** open
 - **created:** 2026-07-24
 - **linked-phase:**
+- **gh-issue:** https://github.com/<owner>/<repo>/issues/<n>
 
 <1–2 line statement>
 ```
