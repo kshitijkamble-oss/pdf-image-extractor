@@ -103,12 +103,12 @@ Frontend page to upload a PDF and show extracted photos. Backfilled: built befor
 
 ## backend-esm-switch  <!-- id: b-20261014-008 -->
 - **tag:** bug
-- **status:** in-progress
+- **status:** done
 - **created:** 2026-10-14
 - **linked-phase:** docs/phases/2026-10-14-backend-esm-switch/
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/10
 
-Backend crashes on Vercel with `ERR_REQUIRE_ESM`: it is built as CommonJS but NestJS 12 ships as ESM only. Switch `apps/backend` to ES modules.
+Backend crashes on Vercel with `ERR_REQUIRE_ESM`: it is built as CommonJS but NestJS 12 ships as ESM only. Switch `apps/backend` to ES modules. **Outcome:** done 2026-10-14 via PR #11 (ESM switch) and PR #14 (lazy pdfjs font path); production health check returns 200.
 
 ## vercel-upload-storage  <!-- id: b-20261014-009 -->
 - **tag:** bug

@@ -23,4 +23,5 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 5. Vercel preview check | failed | — (mentor, browser) | `Cannot find module pdfjs-dist/package.json` on Vercel |
 | 3c. Lazy, fault-tolerant font path | done | mentee 7 (builder) — retired | local run 201; failure path untested locally |
 | 5b. Vercel preview re-check | partly passed | — (mentor, browser) | app starts, /api/health 200; upload 500; / is "Cannot GET /" |
-| 6. Land task 3c on main | waiting for merge | — (mentor) | PR #14; preview /api/health 200 |
+| 6. Land task 3c on main | done | — (mentor) | PR #14 merged; production /api/health 200 |
+| 7. Reconcile and close out | done | — (mentor) | arc done; backlog done; #10 closed |

@@ -3,7 +3,7 @@ topic: backend-esm-switch
 started: 2026-10-14
 updated: 2026-10-14
 backlog: b-20261014-008
-status: implement
+status: done
 ---
 
 # backend-esm-switch
