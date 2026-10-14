@@ -38,3 +38,12 @@ NestJS serves `apps/frontend/dist` as static files (like it serves `uploads/` lo
 ## Chosen
 
 **A — Vercel Services**, chosen by the user 2026-10-14. Reason: one domain keeps the relative `/api` call working with no code change, and front + back deploy together so a PR preview tests the whole app. Accepted risk: Services is Beta. Fallback if Services can't build this monorepo: B.
+## Re-decision — 2026-10-14
+
+**Switched to B**, chosen by the user after A failed twice on the preview (see implement.md tasks 4, 4c). Reason: under Services the backend is packed by a different builder (`@vercel/backends`), so every packaging fix from #10/#12 has to be re-proven and new gaps keep appearing (ESM marker, then `multer`). B leaves the proven backend project untouched.
+
+B facts (checked 2026-10-14):
+- Monorepo docs (https://vercel.com/docs/monorepos): one Vercel project per app directory, each with its own Root Directory; every commit deploys each connected project; unchanged projects are skipped automatically (pnpm workspaces).
+- External rewrites (https://vercel.com/docs/routing/rewrites): `{ "source": "/api/:path*", "destination": "https://api.example.com/:path*" }` in the frontend project's `vercel.json`. New projects honor upstream cache headers by default.
+- CLI 63.1.2 has `vercel project create <name>`, `vercel project update --root-directory --framework`, `vercel git connect --project`, `vercel link --project`.
+- Known trade-off: the frontend's previews call the **production** backend. "Related Projects" could point previews at backend previews, but the backend previews sit behind Vercel login, so it is not used here.

@@ -56,3 +56,16 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 4c. Settings → Services again, redeploy preview | failed | — (mentor, CLI + browser) | ESM fixed; now `Cannot find module 'multer'`; settings reverted, prod 200 |
 | 6. Preview check | waiting | — (mentor, browser) | |
 | 7. Production check after user merges | waiting | — (mentor) | |
+
+### Option B (user switched 2026-10-14)
+
+| Task | Status | Mentee | Notes |
+|------|--------|--------|-------|
+| B0. Plan option B | done | mentee 16 (planner) — retired | 7 tasks; @repo/shared claim re-checked; waiting for user OK |
+| B1. apps/frontend/vercel.json, delete root vercel.json | done | mentee 17 (builder) — retired | clean-state turbo build: shared then frontend; dev + proxy 200 |
+| B2. Create + connect frontend project | done | — (mentor) | `pdf-image-extractor-web` (prj_ZDfKYnOtevWspjMJOIux27TcLE02): root `apps/frontend`, Vite, Git-connected; backend settings unchanged |
+| B3. Push, wait for frontend preview | in progress | — (mentor) | |
+| B4. Preview check | waiting | — (mentor, browser) | |
+| B5. Fix (if needed) | waiting | — | only if B4 fails |
+| B6. Docs | waiting | — | |
+| B7. Final check; user merges; production check | waiting | — (mentor) | |

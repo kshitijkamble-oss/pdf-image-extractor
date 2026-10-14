@@ -65,3 +65,35 @@ Confidence: medium-high from source, not yet seen on a deploy. Vercel's servers 
 9. Decorator metadata: rolldown uses `tsconfig` (`experimentalDecorators`, `emitDecoratorMetadata`); if it is lost, Nest dependency injection fails at startup.
 
 **Fallbacks if A fails:** R1 — write `dist/package.json` `{"type":"module"}` at build (risk: `@nestjs/core` may not resolve from the function root under pnpm); then option B from brainstorm.
+## Prep revision 2 — option B (2026-10-14)
+
+Plan by `mentee 16` (planner); the `@repo/shared` claim re-checked by the mentor (`packages/shared/package.json` points `main`/`types` at `dist/`; the frontend imports types from it, so `tsc -b` needs it built first).
+
+**Skeleton — `apps/frontend/vercel.json`** (new); root `vercel.json` (Services) deleted:
+
+```json
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "buildCommand": "cd ../.. && pnpm turbo run build --filter=frontend",
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://pdf-image-extractor-two.vercel.app/api/:path*" }
+  ]
+}
+```
+
+No SPA catch-all (one page; it would swallow `/api`). No cache headers unless the preview shows a need.
+
+**New Vercel project:** `pdf-image-extractor-web`, team `team-tobu`, Root Directory `apps/frontend`, preset Vite, Git-connected to the same repo. Backend project unchanged.
+
+**Tasks**
+1. [builder] Add `apps/frontend/vercel.json`, delete root `vercel.json`. Check: JSON parses; lint, typecheck, root build pass; the exact `buildCommand` run from `apps/frontend` builds `dist/index.html`; `pnpm dev` + proxy still work.
+2. [mentor, user OK] Create the project, set root + preset, connect Git. Backend `vercel project inspect` unchanged before/after.
+3. [mentor] Push; wait for the frontend preview build.
+4. [mentor] Preview check: `/` page; `/api/health` via frontend URL 200; upload from page shows image; logs clean in both projects; production backend `/api/health` 200.
+5. [builder, only if 4 fails] Fix repo config; repeat 3–4.
+6. [builder] Docs: record the two-project setup; nothing still says Services is current.
+7. [mentor] Final check on the last commit; user merges; check the frontend project's production URL.
+
+**Risks:** `@repo/shared` build on Vercel; multipart POST through the rewrite; CDN caching of `/api`; body size / timeouts over two hops; frontend previews behind Vercel login; **preview uploads go to the production backend and production Blob store**; both projects build on each push.
