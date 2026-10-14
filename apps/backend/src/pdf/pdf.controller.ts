@@ -8,7 +8,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { memoryStorage } from 'multer';
 import type { ExtractedPhoto } from '@repo/shared';
-import { PdfService } from './pdf.service';
+import { PdfService } from './pdf.service.js';
 
 const MAX_FILE_SIZE_BYTES = 20 * 1024 * 1024;
 
