@@ -15,3 +15,8 @@ _Entered 2026-10-14._
 - Vercel docs (https://vercel.com/docs/project-configuration/vercel-json): `functions.<pattern>.includeFiles` is a glob of extra files to put in a function. Not yet checked: which pattern names the auto-detected NestJS function.
 - User chose option 1: make the font path lazy and fault-tolerant (task 3c). No `vercel.json`.
 - Task 3c (mentee 7): `getStandardFontDataUrl()` looks the path up on first use, caches it, and on failure logs one warning and passes no `standardFontDataUrl`. Local build starts; upload 201. Typecheck clean; mentor re-ran it.
+- Vercel preview after 3c (deployment `Fo1MHV7…`): runtime log shows "Nest application successfully started"; `GET /api/health` → 200 `{"status":"ok"}`. **The crash from #10 is fixed.**
+- Still broken on the preview: `POST /api/pdf/upload` with a 1-image PDF → 500 `Internal server error`. The log page shows 3 warnings but would not list them in the browser, so the cause is not confirmed. Likely suspect, not verified: `UPLOADS_ROOT` is under `process.cwd()`, and a Vercel function's own folder is read-only (only `/tmp` can be written). Another: pdfjs's `.mjs` file missing from the bundle.
+- `GET /` → `Cannot GET /`: this Vercel project serves only the NestJS backend, not the frontend.
+- PR #11 was merged (2026-10-14 11:23 UTC) before commit 3ea6771 (task 3c) was pushed, so `main` got only the ESM switch and production still crashed. #10 auto-closed; reopened. Task 3c cherry-picked onto `fix/vercel-font-path-lazy` for a follow-up PR.
+- Punted to new backlog items: upload storage on Vercel (b-20261014-009, #12) and frontend hosting (b-20261014-010, #13).
