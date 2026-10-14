@@ -16,3 +16,6 @@ _Entered 2026-10-14._
 
 - **B1** (mentee 17): `apps/frontend/vercel.json` added, root `vercel.json` deleted. From a clean state, `cd ../.. && pnpm turbo run build --filter=frontend` builds `@repo/shared` then `frontend`; `pnpm dev` page and proxy 200.
 - **B2**: `vercel project create pdf-image-extractor-web`; `project update --root-directory apps/frontend --framework vite`; `git connect` to the same repo. Backend project inspect identical before/after.
+- **B3**: commit `77a97bc` pushed; both projects' PR checks pass. Frontend build log: `Detected Turbo`, `pnpm install` links `@repo/shared`, `@repo/shared:build` then `frontend:build`.
+- **B4** preview `pdf-image-extractor-f8ue5n1wh` (logged-in Chrome): `/api/health` via the frontend → `{"status":"ok"}` (first load slow, backend cold start); `/` shows the upload page; upload from the page → `POST /api/pdf/upload` 201, two Blob images 200 with captions. Backend production logs: clean Nest starts, no errors. Frontend project has no runtime logs (static + rewrite only). Production backend `/api/health` 200. The test upload is in the live Blob store (user OK'd).
+- **B5** skipped (B4 passed). **B6**: no doc outside this arc names Services as current.

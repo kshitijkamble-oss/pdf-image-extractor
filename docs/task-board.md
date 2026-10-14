@@ -64,8 +64,8 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | B0. Plan option B | done | mentee 16 (planner) — retired | 7 tasks; @repo/shared claim re-checked; waiting for user OK |
 | B1. apps/frontend/vercel.json, delete root vercel.json | done | mentee 17 (builder) — retired | clean-state turbo build: shared then frontend; dev + proxy 200 |
 | B2. Create + connect frontend project | done | — (mentor) | `pdf-image-extractor-web` (prj_ZDfKYnOtevWspjMJOIux27TcLE02): root `apps/frontend`, Vite, Git-connected; backend settings unchanged |
-| B3. Push, wait for frontend preview | in progress | — (mentor) | |
-| B4. Preview check | waiting | — (mentor, browser) | |
-| B5. Fix (if needed) | waiting | — | only if B4 fails |
-| B6. Docs | waiting | — | |
-| B7. Final check; user merges; production check | waiting | — (mentor) | |
+| B3. Push, wait for frontend preview | done | — (mentor) | commit `77a97bc`; both projects built; shared built before frontend |
+| B4. Preview check | done | — (mentor, browser + CLI) | `/` page; `/api/health` via frontend 200; upload 201 + 2 Blob images 200; backend logs clean; prod backend 200 |
+| B5. Fix (if needed) | skipped | — | B4 passed |
+| B6. Docs | done | — (mentor) | no doc outside the arc describes Services as current; STATE/activity at reconcile |
+| B7. Final check; user merges; production check | in progress | — (mentor) | PR #20 handed to user |
