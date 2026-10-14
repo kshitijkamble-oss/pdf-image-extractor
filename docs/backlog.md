@@ -37,7 +37,7 @@ hand-editing is fine and expected.
 
 ## issue-before-work  <!-- id: b-20261014-001 -->
 - **tag:** feature
-- **status:** in-progress
+- **status:** done
 - **created:** 2026-10-14
 - **linked-phase:**
 - **gh-issue:** n/a
@@ -45,3 +45,58 @@ hand-editing is fine and expected.
 
 Workflow change, so no issue (#2 was filed, then closed as not planned). File a GitHub issue with `gh` before any work starts, linked from its backlog item, so the work is visible on GitHub and commits/PRs can point to it.
 
+**Outcome:** rule, ADR 0001, hook and /backlog changes landed in fa44e6f.
+
+## monorepo-setup  <!-- id: b-20261014-002 -->
+- **tag:** feature
+- **status:** done
+- **created:** 2026-10-14
+- **linked-phase:** docs/phases/2026-10-13-monorepo-setup/
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/3
+
+Monorepo setup with pnpm workspaces and turbo. Backfilled: built before tracking started, landed in `226bf36` on 2026-10-13.
+
+## shared-api-contract  <!-- id: b-20261014-003 -->
+- **tag:** feature
+- **status:** done
+- **created:** 2026-10-14
+- **linked-phase:** docs/phases/2026-10-13-shared-api-contract/
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/4
+
+Shared API types package (@repo/shared). Backfilled: built before tracking started, landed in `226bf36` on 2026-10-13.
+
+## backend-skeleton  <!-- id: b-20261014-004 -->
+- **tag:** feature
+- **status:** done
+- **created:** 2026-10-14
+- **linked-phase:** docs/phases/2026-10-13-backend-skeleton/
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/5
+
+NestJS backend skeleton with health check and image serving. Backfilled: built before tracking started, landed in `226bf36` on 2026-10-13.
+
+## pdf-image-extraction  <!-- id: b-20261014-005 -->
+- **tag:** feature
+- **status:** done
+- **created:** 2026-10-14
+- **linked-phase:** docs/phases/2026-10-13-pdf-image-extraction/
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/6
+
+PDF upload endpoint that extracts embedded images. Backfilled: built before tracking started, landed in `226bf36` on 2026-10-13.
+
+## caption-detection  <!-- id: b-20261014-006 -->
+- **tag:** feature
+- **status:** done
+- **created:** 2026-10-14
+- **linked-phase:** docs/phases/2026-10-13-caption-detection/
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/7
+
+Detect a caption for each extracted image. Backfilled: built before tracking started, landed in `226bf36` on 2026-10-13.
+
+## frontend-gallery  <!-- id: b-20261014-007 -->
+- **tag:** feature
+- **status:** done
+- **created:** 2026-10-14
+- **linked-phase:** docs/phases/2026-10-13-frontend-gallery/
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/8
+
+Frontend page to upload a PDF and show extracted photos. Backfilled: built before tracking started, landed in `226bf36` on 2026-10-13.

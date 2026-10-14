@@ -12,5 +12,7 @@ Format:
 
 <!-- entries below -->
 
+- 2026-10-14 — Backfilled records for the app work in `226bf36`: backlog `b-20261014-002`…`007`, six arcs in `docs/phases/2026-10-13-*` (status done, marked reconstructed), and GitHub issues #3–#8 (filed and closed as completed). Reconstructed from the code; original plans and reasons were never recorded.
 - 2026-10-14 — ADR [0001](decisions/0001-github-issue-before-app-work.md) accepted: GitHub issue before app work, none for workflow changes. Test issue #1 and workflow issue #2 filed and closed as not planned.
 - 2026-10-14 — Installed GitHub CLI (`gh` 2.102.0) and logged in as `kshitijkamble-oss`.
+- 2026-10-13 — First commit `226bf36`: PDF image extractor (NestJS backend, React frontend, shared types) plus the Claude workflow setup, all in one commit.
