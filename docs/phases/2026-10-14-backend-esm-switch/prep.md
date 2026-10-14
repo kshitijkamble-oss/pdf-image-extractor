@@ -12,3 +12,5 @@ Plan from mentee 2 (planner), approved by the user on 2026-10-14.
 Boundaries: `@repo/shared` stays as is (types only, erased at build). No frontend changes. Vercel check happens after merge through a PR.
 
 **Patch (2026-10-14, found in implement):** 3b. In `pdf/pdf-image-extractor.ts`, replace the top-level `require.resolve` with `createRequire(import.meta.url).resolve`. Prep missed it; see implement.md.
+
+**Patch 2 (2026-10-14, found on the Vercel preview):** 3c. In `pdf/pdf-image-extractor.ts`, look up the standard-fonts path lazily (on first PDF, not at import), and if the lookup fails, leave `standardFontDataUrl` out instead of crashing. User chose this over a `vercel.json` `includeFiles` fix (option 1 of 3).

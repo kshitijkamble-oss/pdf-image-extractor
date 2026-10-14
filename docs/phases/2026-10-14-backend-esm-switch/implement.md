@@ -11,3 +11,7 @@ _Entered 2026-10-14._
 - Task 2 skipped: `import { memoryStorage } from 'multer'` works under ESM at runtime.
 - Mentor ran `pnpm -r lint` and `pnpm -r typecheck`: both clean.
 - Still open: confirm on Vercel after merge.
+- **Vercel preview of PR #11 still 500s, with a new error.** `ERR_REQUIRE_ESM` is gone. Runtime log: `Cannot find module 'pdfjs-dist/package.json'` from `/var/task/apps/backend/src/pdf/pdf-image-extractor.js`. Locally the lookup works (pdfjs-dist 6.3.289 has no `exports` map). So the file is missing from the Vercel function bundle: Vercel only ships files it traces from the code, and it did not trace this one. Same `require.resolve` existed before the switch, so this bug was hidden behind the first crash. The `standard_fonts` folder it points at is a runtime path, so it is not traced either.
+- Vercel docs (https://vercel.com/docs/project-configuration/vercel-json): `functions.<pattern>.includeFiles` is a glob of extra files to put in a function. Not yet checked: which pattern names the auto-detected NestJS function.
+- User chose option 1: make the font path lazy and fault-tolerant (task 3c). No `vercel.json`.
+- Task 3c (mentee 7): `getStandardFontDataUrl()` looks the path up on first use, caches it, and on failure logs one warning and passes no `standardFontDataUrl`. Local build starts; upload 201. Typecheck clean; mentor re-ran it.

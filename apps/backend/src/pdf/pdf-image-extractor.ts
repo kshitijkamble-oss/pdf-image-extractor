@@ -11,13 +11,6 @@ import type { CaptionTextLine } from './caption.util.js';
 
 const require = createRequire(import.meta.url);
 
-// Silences a pdfjs warning: without this it can't find metrics for
-// non-embedded standard fonts while building the operator list.
-const STANDARD_FONT_DATA_URL = `${join(
-  dirname(require.resolve('pdfjs-dist/package.json')),
-  'standard_fonts',
-)}/`;
-
 const MIN_IMAGE_DIMENSION_PX = 50;
 const GRAYSCALE_1BPP = 1;
 const RGB_24BPP = 2;
@@ -25,6 +18,30 @@ const RGBA_32BPP = 3;
 const LINE_Y_TOLERANCE_PT = 2;
 
 const logger = new Logger('PdfImageExtractor');
+
+let standardFontDataUrl: string | undefined;
+let standardFontDataUrlResolved = false;
+
+// Silences a pdfjs warning: without this it can't find metrics for
+// non-embedded standard fonts while building the operator list.
+// A failed lookup is tolerated because Vercel's bundle can leave the file out.
+function getStandardFontDataUrl(): string | undefined {
+  if (standardFontDataUrlResolved) {
+    return standardFontDataUrl;
+  }
+  standardFontDataUrlResolved = true;
+  try {
+    standardFontDataUrl = `${join(
+      dirname(require.resolve('pdfjs-dist/package.json')),
+      'standard_fonts',
+    )}/`;
+  } catch {
+    logger.warn(
+      'pdfjs standard fonts could not be found, so pdfjs may warn about font metrics',
+    );
+  }
+  return standardFontDataUrl;
+}
 
 export interface ImageBoundingBox {
   x: number;
@@ -218,7 +235,7 @@ export async function extractImages(
     useWorkerFetch: false,
     useSystemFonts: false,
     disableFontFace: true,
-    standardFontDataUrl: STANDARD_FONT_DATA_URL,
+    standardFontDataUrl: getStandardFontDataUrl(),
   });
 
   const uploadDir = join(uploadsRoot, uploadId);
