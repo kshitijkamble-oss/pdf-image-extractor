@@ -127,3 +127,12 @@ Uploads return 500 on Vercel. Likely because images are saved to a local `upload
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/13
 
 `/` on Vercel returns `Cannot GET /`: only the backend is deployed. Decide how `apps/frontend` is hosted and how it reaches the API.
+
+## vercel-blob-cleanup  <!-- id: b-20261014-011 -->
+- **tag:** tech-debt
+- **status:** open
+- **created:** 2026-10-14
+- **linked-phase:**
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/18
+
+Extracted images in the Vercel Blob store are never deleted, so storage grows with every upload. Decide when and how old images are removed.
