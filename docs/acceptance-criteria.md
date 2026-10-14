@@ -15,3 +15,14 @@ An item is finished only when both pass.
 ---
 
 <!-- items below this line -->
+
+## b-20261014-010 — vercel-frontend-hosting
+
+**Satisfies**
+- On the PR's Vercel preview, `GET /` shows the upload page (not `Cannot GET /`).
+- From that page, uploading a PDF with an image shows the extracted image.
+- `GET /api/health` still returns 200.
+- No error for these requests in `vercel logs`.
+- Local dev (`pnpm dev`) still works as before.
+
+**Blocked by** — none.

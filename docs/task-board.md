@@ -39,3 +39,33 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | B. PR preview check | done | — (mentor, browser + CLI) | PR #17 preview: health 200, upload 201, Blob image 200; logs clean except known warnings |
 | C. Backlog item for Blob cleanup | done | — (mentor) | b-20261014-011 |
 | D. Production check + reconcile | done | — (mentor) | production upload 201, Blob image 200; arc done; #12 closed |
+
+## 2026-10-14 — vercel-frontend-hosting (b-20261014-010, #13)
+
+| Task | Status | Mentee | Notes |
+|------|--------|--------|-------|
+| 0. Plan Vercel Services setup | done | mentee 12 (planner) — retired | 7 tasks, config only; build facts re-checked; waiting for user OK |
+| 1. Add vercel.json | done | mentee 13 (builder) — retired | lint/typecheck/build pass; dev page + proxy 200; slugs `vite`/`nestjs` checked in vercel/vercel source |
+| 2. Local `vercel build` (optional) | skipped | — (mentor) | would use current settings (root `apps/backend`), so it cannot see the new vercel.json |
+| 3. Push, open PR, ask OK for settings | done | — (mentor) | PR #20; user OK'd settings change |
+| 4. Change settings, redeploy preview | failed | — (mentor, CLI + browser) | build green (both services); `/` shows page; backend crashes: `/var/task/main.js` loaded as CommonJS, `/api/health` 500 |
+| 4a. Revert settings | done | — (mentor) | root `apps/backend`, preset NestJS; production /api/health 200 |
+| 4b. Research ESM backend under Services | done | mentee 14 (general-purpose) — retired (stopped) | fix A: backend `outputDirectory: "."` + `entrypoint`; key source claim re-checked by mentor |
+| 5. Fix vercel.json: backend outputDirectory + entrypoint | done | mentee 15 (builder) — retired | diff checked by mentor |
+| 5a. Local `vercel build` in Services mode | done | — (mentor) | handler `src/main.mjs`; worker traced; metadata kept |
+| 4c. Settings → Services again, redeploy preview | failed | — (mentor, CLI + browser) | ESM fixed; now `Cannot find module 'multer'`; settings reverted, prod 200 |
+| 6. Preview check | waiting | — (mentor, browser) | |
+| 7. Production check after user merges | waiting | — (mentor) | |
+
+### Option B (user switched 2026-10-14)
+
+| Task | Status | Mentee | Notes |
+|------|--------|--------|-------|
+| B0. Plan option B | done | mentee 16 (planner) — retired | 7 tasks; @repo/shared claim re-checked; waiting for user OK |
+| B1. apps/frontend/vercel.json, delete root vercel.json | done | mentee 17 (builder) — retired | clean-state turbo build: shared then frontend; dev + proxy 200 |
+| B2. Create + connect frontend project | done | — (mentor) | `pdf-image-extractor-web` (prj_ZDfKYnOtevWspjMJOIux27TcLE02): root `apps/frontend`, Vite, Git-connected; backend settings unchanged |
+| B3. Push, wait for frontend preview | done | — (mentor) | commit `77a97bc`; both projects built; shared built before frontend |
+| B4. Preview check | done | — (mentor, browser + CLI) | `/` page; `/api/health` via frontend 200; upload 201 + 2 Blob images 200; backend logs clean; prod backend 200 |
+| B5. Fix (if needed) | skipped | — | B4 passed |
+| B6. Docs | done | — (mentor) | no doc outside the arc describes Services as current; STATE/activity at reconcile |
+| B7. Final check; user merges; production check | in progress | — (mentor) | PR #20 handed to user |
