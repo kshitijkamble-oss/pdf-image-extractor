@@ -52,6 +52,6 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 4b. Research ESM backend under Services | done | mentee 14 (general-purpose) — retired (stopped) | fix A: backend `outputDirectory: "."` + `entrypoint`; key source claim re-checked by mentor |
 | 5. Fix vercel.json: backend outputDirectory + entrypoint | done | mentee 15 (builder) — retired | diff checked by mentor |
 | 5a. Local `vercel build` in Services mode | done | — (mentor) | handler `src/main.mjs`; worker traced; metadata kept |
-| 4c. Settings → Services again, redeploy preview | waiting | — (mentor) | needs user OK |
+| 4c. Settings → Services again, redeploy preview | failed | — (mentor, CLI + browser) | ESM fixed; now `Cannot find module 'multer'`; settings reverted, prod 200 |
 | 6. Preview check | waiting | — (mentor, browser) | |
 | 7. Production check after user merges | waiting | — (mentor) | |
