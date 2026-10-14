@@ -3,7 +3,7 @@ topic: vercel-upload-storage
 started: 2026-10-14
 updated: 2026-10-14
 backlog: b-20261014-009
-status: implement
+status: done
 ---
 
 # vercel-upload-storage
