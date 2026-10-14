@@ -109,3 +109,21 @@ Frontend page to upload a PDF and show extracted photos. Backfilled: built befor
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/10
 
 Backend crashes on Vercel with `ERR_REQUIRE_ESM`: it is built as CommonJS but NestJS 12 ships as ESM only. Switch `apps/backend` to ES modules.
+
+## vercel-upload-storage  <!-- id: b-20261014-009 -->
+- **tag:** bug
+- **status:** open
+- **created:** 2026-10-14
+- **linked-phase:**
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/12
+
+Uploads return 500 on Vercel. Likely because images are saved to a local `uploads/` folder, which a Vercel function cannot write to or share. Decide where extracted images are stored.
+
+## vercel-frontend-hosting  <!-- id: b-20261014-010 -->
+- **tag:** bug
+- **status:** open
+- **created:** 2026-10-14
+- **linked-phase:**
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/13
+
+`/` on Vercel returns `Cannot GET /`: only the backend is deployed. Decide how `apps/frontend` is hosted and how it reaches the API.
