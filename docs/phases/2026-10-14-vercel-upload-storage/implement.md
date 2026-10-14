@@ -1,0 +1,11 @@
+# Implement — vercel-upload-storage
+
+_Entered 2026-10-14._
+
+- Step A (mentor): `vercel link` to `pdf-image-extractor`; `.gitignore` now ignores `.vercel` and `.env*`. Created public Blob store `pdf-image-extractor-images` (default region iad1) with `vercel blob create-store --access public`, connected to Production, Preview, and Development (Development so `.env.local` has credentials for task 4). **The project got only `BLOB_READ_WRITE_TOKEN`, not `BLOB_STORE_ID`**, so "has Blob credentials" must check `BLOB_READ_WRITE_TOKEN` (the docs' OIDC pairing needs both, and `VERCEL_OIDC_TOKEN` alone is present on every Vercel deploy).
+- Task 1 (mentee 9): `pdfjs-loader.ts` preloads `pdf.worker.mjs` with a literal `import()` and sets `globalThis.pdfjsWorker`; new `pdfjs-worker.d.ts` types the module. Local upload 201; literal path present in `dist`. Mentor re-ran typecheck.
+- Task 2 (mentee 10): `image-storage.ts` with `UPLOADS_ROOT`, `usesBlobStorage()` (checks `BLOB_READ_WRITE_TOKEN`), `storeImage()`; throws "Vercel Blob store is not connected" on Vercel without the token. `@vercel/blob` pinned to `2.8.0`. `put` takes a Node `Buffer` as is. Mentor re-ran typecheck.
+- Task 3 (mentee 11): `saveImage` → `encodeImage` (`.png().toBuffer()`); `extractImages(buffer, uploadId)` calls `storeImage`; the two duplicated blocks became `storeExtractedImage`; service passes `imageUrl` through; `main.ts` serves `uploads/` only when not using Blob. Local upload 201, image 200. Mentor re-ran repo typecheck.
+- Task 4 (mentor, because it needs the secret in `.env.local`): `node --env-file=../../.env.local dist/main.js` → upload returned `https://zbqizcpzu33ad1uq.public.blob.vercel-storage.com/<uuid>/p1-1.png`; GET 200 `image/png`; no new folder under `uploads/`.
+- Step B (mentor): PR #17 preview — `/api/health` 200; `POST /api/pdf/upload` (1-image PDF, from the logged-in Chrome tab) → 201 with a `public.blob.vercel-storage.com` URL that loads (200 `image/png`). `vercel logs --branch fix/vercel-upload-storage`: no ENOENT, no worker error; only the known warnings (`@napi-rs/canvas` missing → no `DOMMatrix`/`Path2D` polyfill; standard fonts not found).
+- Step C: Blob cleanup filed as b-20261014-011.

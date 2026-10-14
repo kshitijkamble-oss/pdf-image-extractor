@@ -25,3 +25,16 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 5b. Vercel preview re-check | partly passed | — (mentor, browser) | app starts, /api/health 200; upload 500; / is "Cannot GET /" |
 | 6. Land task 3c on main | done | — (mentor) | PR #14 merged; production /api/health 200 |
 | 7. Reconcile and close out | done | — (mentor) | arc done; backlog done; #10 closed |
+
+## 2026-10-14 — vercel-upload-storage (b-20261014-009, #12)
+
+| Task | Status | Mentee | Notes |
+|------|--------|--------|-------|
+| 0. Plan Blob storage + pdfjs worker fix | done | mentee 8 (planner) — retired | 4 builder tasks + 3 mentor steps; waiting for user OK |
+| 1. pdfjs worker via globalThis.pdfjsWorker | done | mentee 9 (builder) — retired | local upload 201; literal import in dist; re-checked by mentor |
+| A. Create + connect Blob store | done | — (mentor) | store `pdf-image-extractor-images` (public, iad1); only `BLOB_READ_WRITE_TOKEN` added, no `BLOB_STORE_ID` |
+| 2. Storage module + @vercel/blob@2.8.0 | done | mentee 10 (builder) — retired | local + "not connected" smoke tests pass; re-checked by mentor |
+| 3. Wire extractor, service, main.ts | done | mentee 11 (builder) — retired | local upload 201, image 200; re-checked by mentor |
+| 4. Blob-mode local run | done | — (mentor) | Blob URL returned, image 200 image/png, no new uploads/ folder |
+| B. PR preview check | done | — (mentor, browser + CLI) | PR #17 preview: health 200, upload 201, Blob image 200; logs clean except known warnings |
+| C. Backlog item for Blob cleanup | done | — (mentor) | b-20261014-011 |
