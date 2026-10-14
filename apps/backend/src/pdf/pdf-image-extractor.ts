@@ -1,11 +1,11 @@
 import { Logger } from '@nestjs/common';
-import { mkdir } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
 import sharp from 'sharp';
 import type { Sharp } from 'sharp';
 import type { PDFPageProxy } from 'pdfjs-dist';
 import { loadPdfjs } from './pdfjs-loader.js';
+import { storeImage } from './image-storage.js';
 import { findCaption } from './caption.util.js';
 import type { CaptionTextLine } from './caption.util.js';
 
@@ -124,18 +124,18 @@ function unpackGrayscale1Bpp(
   return out;
 }
 
-async function saveImage(
+async function encodeImage(
   imageData: PdfImageData,
-  filePath: string,
-): Promise<boolean> {
+  pathname: string,
+): Promise<Buffer | undefined> {
   const { width, height, kind, data } = imageData;
 
   if (!data) {
-    logger.warn(`Skipping bitmap-only image with no pixel data: ${filePath}`);
-    return false;
+    logger.warn(`Skipping bitmap-only image with no pixel data: ${pathname}`);
+    return undefined;
   }
   if (width < MIN_IMAGE_DIMENSION_PX || height < MIN_IMAGE_DIMENSION_PX) {
-    return false;
+    return undefined;
   }
 
   let pipeline: Sharp;
@@ -152,12 +152,11 @@ async function saveImage(
       raw: { width, height, channels: 1 },
     });
   } else {
-    logger.warn(`Skipping image with unsupported kind ${kind}: ${filePath}`);
-    return false;
+    logger.warn(`Skipping image with unsupported kind ${kind}: ${pathname}`);
+    return undefined;
   }
 
-  await pipeline.png().toFile(filePath);
-  return true;
+  return pipeline.png().toBuffer();
 }
 
 interface RawTextItem {
@@ -226,7 +225,6 @@ async function extractTextLines(page: PDFPageProxy): Promise<CaptionTextLine[]> 
 export async function extractImages(
   buffer: Buffer,
   uploadId: string,
-  uploadsRoot: string,
 ): Promise<ExtractedImage[]> {
   const pdfjs = await loadPdfjs();
   const loadingTask = pdfjs.getDocument({
@@ -237,9 +235,6 @@ export async function extractImages(
     disableFontFace: true,
     standardFontDataUrl: getStandardFontDataUrl(),
   });
-
-  const uploadDir = join(uploadsRoot, uploadId);
-  await mkdir(uploadDir, { recursive: true });
 
   const images: ExtractedImage[] = [];
 
@@ -255,6 +250,25 @@ export async function extractImages(
       const matrixStack: Matrix[] = [];
       let imageCount = 0;
 
+      const storeExtractedImage = async (
+        imageData: PdfImageData,
+        name: string,
+      ): Promise<void> => {
+        const fileName = `${name}.png`;
+        const png = await encodeImage(imageData, `${uploadId}/${fileName}`);
+        if (!png) {
+          return;
+        }
+        const imageUrl = await storeImage(`${uploadId}/${fileName}`, png);
+        const boundingBox = boundingBoxFromMatrix(ctm);
+        images.push({
+          pageNumber,
+          imageUrl,
+          boundingBox,
+          caption: findCaption(boundingBox, textLines),
+        });
+      };
+
       for (let i = 0; i < operatorList.fnArray.length; i++) {
         const fn = operatorList.fnArray[i];
         const args: unknown = operatorList.argsArray[i];
@@ -269,31 +283,11 @@ export async function extractImages(
           const [objId] = args as [string, number, number];
           const imageData = await resolvePdfObject<PdfImageData>(page, objId);
           imageCount += 1;
-          const fileName = `p${pageNumber}-${imageCount}.png`;
-          const saved = await saveImage(imageData, join(uploadDir, fileName));
-          if (saved) {
-            const boundingBox = boundingBoxFromMatrix(ctm);
-            images.push({
-              pageNumber,
-              imageUrl: `${uploadId}/${fileName}`,
-              boundingBox,
-              caption: findCaption(boundingBox, textLines),
-            });
-          }
+          await storeExtractedImage(imageData, `p${pageNumber}-${imageCount}`);
         } else if (fn === pdfjs.OPS.paintInlineImageXObject) {
           const [imageData] = args as [PdfImageData];
           imageCount += 1;
-          const fileName = `p${pageNumber}-${imageCount}.png`;
-          const saved = await saveImage(imageData, join(uploadDir, fileName));
-          if (saved) {
-            const boundingBox = boundingBoxFromMatrix(ctm);
-            images.push({
-              pageNumber,
-              imageUrl: `${uploadId}/${fileName}`,
-              boundingBox,
-              caption: findCaption(boundingBox, textLines),
-            });
-          }
+          await storeExtractedImage(imageData, `p${pageNumber}-${imageCount}`);
         }
       }
     }

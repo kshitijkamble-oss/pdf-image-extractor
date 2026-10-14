@@ -112,9 +112,9 @@ Backend crashes on Vercel with `ERR_REQUIRE_ESM`: it is built as CommonJS but Ne
 
 ## vercel-upload-storage  <!-- id: b-20261014-009 -->
 - **tag:** bug
-- **status:** open
+- **status:** in-progress
 - **created:** 2026-10-14
-- **linked-phase:**
+- **linked-phase:** docs/phases/2026-10-14-vercel-upload-storage/
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/12
 
 Uploads return 500 on Vercel. Likely because images are saved to a local `uploads/` folder, which a Vercel function cannot write to or share. Decide where extracted images are stored.
