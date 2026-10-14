@@ -121,12 +121,12 @@ Uploads return 500 on Vercel. Likely because images are saved to a local `upload
 
 ## vercel-frontend-hosting  <!-- id: b-20261014-010 -->
 - **tag:** bug
-- **status:** in-progress
+- **status:** done
 - **created:** 2026-10-14
 - **linked-phase:** docs/phases/2026-10-14-vercel-frontend-hosting/
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/13
 
-`/` on Vercel returns `Cannot GET /`: only the backend is deployed. Decide how `apps/frontend` is hosted and how it reaches the API.
+`/` on Vercel returns `Cannot GET /`: only the backend is deployed. Decide how `apps/frontend` is hosted and how it reaches the API. **Outcome:** done 2026-10-14 via PR #20: second Vercel project `pdf-image-extractor-web` (root `apps/frontend`) proxies `/api/*` to the backend; live at https://pdf-image-extractor-web.vercel.app. Vercel Services was tried first and dropped.
 
 ## vercel-blob-cleanup  <!-- id: b-20261014-011 -->
 - **tag:** tech-debt

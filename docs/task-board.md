@@ -68,4 +68,4 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | B4. Preview check | done | — (mentor, browser + CLI) | `/` page; `/api/health` via frontend 200; upload 201 + 2 Blob images 200; backend logs clean; prod backend 200 |
 | B5. Fix (if needed) | skipped | — | B4 passed |
 | B6. Docs | done | — (mentor) | no doc outside the arc describes Services as current; STATE/activity at reconcile |
-| B7. Final check; user merges; production check | in progress | — (mentor) | PR #20 handed to user |
+| B7. Final check; user merges; production check | done | — (mentor) | merged `18a3ffe`; https://pdf-image-extractor-web.vercel.app `/` 200, `/api/health` 200; arc reconciled |
