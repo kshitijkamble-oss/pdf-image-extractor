@@ -100,3 +100,12 @@ Detect a caption for each extracted image. Backfilled: built before tracking sta
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/8
 
 Frontend page to upload a PDF and show extracted photos. Backfilled: built before tracking started, landed in `226bf36` on 2026-10-13.
+
+## backend-esm-switch  <!-- id: b-20261014-008 -->
+- **tag:** bug
+- **status:** in-progress
+- **created:** 2026-10-14
+- **linked-phase:** docs/phases/2026-10-14-backend-esm-switch/
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/10
+
+Backend crashes on Vercel with `ERR_REQUIRE_ESM`: it is built as CommonJS but NestJS 12 ships as ESM only. Switch `apps/backend` to ES modules.

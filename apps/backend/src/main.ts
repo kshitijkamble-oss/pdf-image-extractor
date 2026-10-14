@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { AppModule } from './app.module';
-import { UPLOADS_ROOT } from './pdf/pdf.service';
+import { AppModule } from './app.module.js';
+import { UPLOADS_ROOT } from './pdf/pdf.service.js';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);

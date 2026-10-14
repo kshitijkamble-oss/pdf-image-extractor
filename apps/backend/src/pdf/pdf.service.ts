@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
 import { join } from 'node:path';
 import type { ExtractedPhoto } from '@repo/shared';
-import { extractImages } from './pdf-image-extractor';
+import { extractImages } from './pdf-image-extractor.js';
 
 export const UPLOADS_ROOT = join(process.cwd(), 'uploads');
 

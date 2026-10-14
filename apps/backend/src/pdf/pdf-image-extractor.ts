@@ -1,12 +1,15 @@
 import { Logger } from '@nestjs/common';
 import { mkdir } from 'node:fs/promises';
+import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
 import sharp from 'sharp';
 import type { Sharp } from 'sharp';
 import type { PDFPageProxy } from 'pdfjs-dist';
-import { loadPdfjs } from './pdfjs-loader';
-import { findCaption } from './caption.util';
-import type { CaptionTextLine } from './caption.util';
+import { loadPdfjs } from './pdfjs-loader.js';
+import { findCaption } from './caption.util.js';
+import type { CaptionTextLine } from './caption.util.js';
+
+const require = createRequire(import.meta.url);
 
 // Silences a pdfjs warning: without this it can't find metrics for
 // non-embedded standard fonts while building the operator list.
