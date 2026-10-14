@@ -38,3 +38,4 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 4. Blob-mode local run | done | — (mentor) | Blob URL returned, image 200 image/png, no new uploads/ folder |
 | B. PR preview check | done | — (mentor, browser + CLI) | PR #17 preview: health 200, upload 201, Blob image 200; logs clean except known warnings |
 | C. Backlog item for Blob cleanup | done | — (mentor) | b-20261014-011 |
+| D. Production check + reconcile | done | — (mentor) | production upload 201, Blob image 200; arc done; #12 closed |
