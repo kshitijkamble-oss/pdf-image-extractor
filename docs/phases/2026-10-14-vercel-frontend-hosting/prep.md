@@ -45,3 +45,23 @@ Root Directory `apps/backend` → repo root; Framework Preset `NestJS` → `Serv
 5. Do `sharp` and `pdfjs-dist` still work in the backend function (real upload)?
 6. Is `BLOB_READ_WRITE_TOKEN` passed to the backend service?
 7. Services is Beta: behaviour may differ from the docs. Fallback: option B.
+## Prep revision 1 — 2026-10-14 (after task 4 failed)
+
+**What prep got wrong:** it assumed the `nestjs` service builds the way the plain NestJS preset does. It does not. Research by `mentee 14` (local Vercel CLI 63.1.2 builder source; the mentor re-read `@vercel/backends/dist/index.mjs` ~1736–1770):
+- Plain preset → `@vercel/nestjs` → `@vercel/node` compiles `src/main.ts`. Works.
+- Services → every Node backend goes to `@vercel/backends`. After `nest build` it finds `dist/main.js` and copies `dist/**` to the function root, so `/var/task/main.js` has no `package.json` with `"type": "module"` next to it → loaded as CommonJS → crash.
+- When the service's `outputDirectory` resolves to the service folder itself, that "use built output" step is skipped and the builder bundles from source (rolldown), picking ESM from `"type": "module"` and writing `.mjs`, which always loads as ESM.
+
+**Revised skeleton** — backend service only:
+
+```json
+"backend": { "root": "apps/backend", "framework": "nestjs", "entrypoint": "src/main.ts", "outputDirectory": "." }
+```
+
+Confidence: medium-high from source, not yet seen on a deploy. Vercel's servers may run a newer builder.
+
+**New risks:**
+8. The backend is now bundled by rolldown, not traced by `@vercel/node`. The #10/#12 fixes (pdfjs worker preload, lazy font path, `sharp` native binary) were proven under the old packaging and must be re-proven with a real upload.
+9. Decorator metadata: rolldown uses `tsconfig` (`experimentalDecorators`, `emitDecoratorMetadata`); if it is lost, Nest dependency injection fails at startup.
+
+**Fallbacks if A fails:** R1 — write `dist/package.json` `{"type":"module"}` at build (risk: `@nestjs/core` may not resolve from the function root under pnpm); then option B from brainstorm.

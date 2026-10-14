@@ -46,8 +46,12 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 0. Plan Vercel Services setup | done | mentee 12 (planner) — retired | 7 tasks, config only; build facts re-checked; waiting for user OK |
 | 1. Add vercel.json | done | mentee 13 (builder) — retired | lint/typecheck/build pass; dev page + proxy 200; slugs `vite`/`nestjs` checked in vercel/vercel source |
 | 2. Local `vercel build` (optional) | skipped | — (mentor) | would use current settings (root `apps/backend`), so it cannot see the new vercel.json |
-| 3. Push, open PR, ask OK for settings | in progress | — (mentor) | |
-| 4. Change settings, redeploy preview | waiting | — (mentor) | needs user OK |
-| 5. Fix vercel.json (if needed) | waiting | — | only if 4 fails |
+| 3. Push, open PR, ask OK for settings | done | — (mentor) | PR #20; user OK'd settings change |
+| 4. Change settings, redeploy preview | failed | — (mentor, CLI + browser) | build green (both services); `/` shows page; backend crashes: `/var/task/main.js` loaded as CommonJS, `/api/health` 500 |
+| 4a. Revert settings | done | — (mentor) | root `apps/backend`, preset NestJS; production /api/health 200 |
+| 4b. Research ESM backend under Services | done | mentee 14 (general-purpose) — retired (stopped) | fix A: backend `outputDirectory: "."` + `entrypoint`; key source claim re-checked by mentor |
+| 5. Fix vercel.json: backend outputDirectory + entrypoint | done | mentee 15 (builder) — retired | diff checked by mentor |
+| 5a. Local `vercel build` in Services mode | done | — (mentor) | handler `src/main.mjs`; worker traced; metadata kept |
+| 4c. Settings → Services again, redeploy preview | waiting | — (mentor) | needs user OK |
 | 6. Preview check | waiting | — (mentor, browser) | |
 | 7. Production check after user merges | waiting | — (mentor) | |
