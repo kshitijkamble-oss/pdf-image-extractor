@@ -136,3 +136,12 @@ Uploads return 500 on Vercel. Likely because images are saved to a local `upload
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/18
 
 Extracted images in the Vercel Blob store are never deleted, so storage grows with every upload. Decide when and how old images are removed.
+
+## rename-vercel-projects  <!-- id: b-20261015-012 -->
+- **tag:** tech-debt
+- **status:** in-progress
+- **created:** 2026-10-15
+- **linked-phase:**
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/22
+
+Vercel project names didn't say which is frontend and which is backend. Renamed to `pdf-image-extractor-frontend` / `pdf-image-extractor-backend` with matching `.vercel.app` domains; frontend's `/api` rewrite now targets the backend's new domain. Old domains (`-web`, `-two`) still attached.

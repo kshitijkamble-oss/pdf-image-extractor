@@ -6,7 +6,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://pdf-image-extractor-two.vercel.app/api/:path*"
+      "destination": "https://pdf-image-extractor-backend.vercel.app/api/:path*"
     }
   ]
 }

@@ -23,7 +23,7 @@ For any change to `apps/backend` (or anything else Vercel deploys), before sayin
 
 1. Wait for the PR's Vercel preview: `gh pr checks <n> --watch`.
 2. Hit the preview: `/api/health`, plus one real request that runs the changed code. The preview sits behind Vercel login, so use the logged-in Chrome tab, not `curl`.
-3. Read that deployment's runtime logs: `vercel logs --project pdf-image-extractor --scope team-tobu --branch <branch> --expand`.
+3. Read that deployment's runtime logs: `vercel logs --project pdf-image-extractor-backend --scope team-tobu --branch <branch> --expand`.
 4. Report what the preview did. If it fails, the PR is not ready, however clean the local run was.
 
 Red flags in a diff: `require.resolve`, a file path built at runtime, a worker or asset loaded by path, and writes under `process.cwd()` or `__dirname`.
