@@ -3,7 +3,7 @@ topic: vercel-frontend-hosting
 started: 2026-10-14
 updated: 2026-10-14
 backlog: b-20261014-010
-status: implement
+status: done
 ---
 
 # vercel-frontend-hosting
