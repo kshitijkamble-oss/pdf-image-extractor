@@ -135,7 +135,7 @@ Uploads return 500 on Vercel. Likely because images are saved to a local `upload
 - **linked-phase:**
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/18
 
-Extracted images in the Vercel Blob store are never deleted, so storage grows with every upload. Decide when and how old images are removed.
+Extracted images in the Vercel Blob store are never deleted, so storage grows with every upload. Decide when and how old images are removed. Also: since b-20261016-001, uploaded PDFs left in the private PDF store when the browser closes before `/api/pdf/extract` runs.
 
 ## rename-vercel-projects  <!-- id: b-20261015-012 -->
 - **tag:** tech-debt
@@ -145,3 +145,21 @@ Extracted images in the Vercel Blob store are never deleted, so storage grows wi
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/22
 
 Vercel project names didn't say which is frontend and which is backend. Renamed to `pdf-image-extractor-frontend` / `pdf-image-extractor-backend` with matching `.vercel.app` domains; frontend's `/api` rewrite now targets the backend's new domain. Old domains (`-web`, `-two`) still attached.
+
+## upload-over-1mb-fails  <!-- id: b-20261016-001 -->
+- **tag:** bug
+- **status:** in-progress
+- **created:** 2026-10-16
+- **linked-phase:** docs/phases/2026-10-16-upload-over-1mb/
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/24
+
+PDF uploads over ~1 MB fail on Vercel with 503 (over 4.5 MB with 413), though the app allows 20 MB. Fix by uploading from the browser straight to a private Blob store (PDF-only, 20 MB, short-lived tokens), checking it is a PDF, and deleting it after extraction.
+
+## user-login  <!-- id: b-20261016-002 -->
+- **tag:** feature
+- **status:** open
+- **created:** 2026-10-16
+- **linked-phase:**
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/25
+
+The app has no login, so anyone can upload or get an upload token. Add login when the app is shared beyond the owner or storage costs grow.

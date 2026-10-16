@@ -69,3 +69,15 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | B5. Fix (if needed) | skipped | — | B4 passed |
 | B6. Docs | done | — (mentor) | no doc outside the arc describes Services as current; STATE/activity at reconcile |
 | B7. Final check; user merges; production check | done | — (mentor) | merged `18a3ffe`; https://pdf-image-extractor-web.vercel.app `/` 200, `/api/health` 200; arc reconciled |
+
+## 2026-10-16 — upload-over-1mb (b-20261016-001, #24)
+
+| Task | Status | Mentee | Notes |
+|------|--------|--------|-------|
+| 0. Plan browser → private Blob upload | done | mentee 18 (planner) — retired | 4 builder + 2 mentor tasks; `get`/`del` re-checked by mentor; "unit tests" swapped for scripted checks (no test setup in repo); waiting for user OK |
+| 1. Backend token route + pdf-blob-storage.ts | done | mentee 19 (builder) — retired | 501 without token, 400 bad pathname, 200 clientToken with fake token; no `onUploadCompleted` needed; random-suffix position unverified (preview will show); re-checked by mentor |
+| 2. Backend extract-from-blob route | done | mentee 20 (builder) — retired | stubbed checks: valid → photos + delete; non-PDF 400, oversize 413 (size and running cap), missing 404, all delete; URL/`..` pathnames 400 with no `get`; re-checked by mentor |
+| 3. Old upload route off on Vercel | done | mentee 21 (builder) — retired | guard before multer; VERCEL=1 → 410 `MULTIPART_UPLOAD_DISABLED`, unset → 201; `VERCEL=1` at runtime checked in Vercel docs; re-checked by mentor |
+| 4. Frontend client upload + fallback | done | mentee 22 (builder) — retired | preflight to blob-token (only 501 → multipart) because `upload()` hides the token response status; local fallback 501→201 via Vite proxy; real Blob path untested until preview; typecheck/lint/build re-run by mentor |
+| 5. Create private Blob store + env var | waiting | — (mentor) | |
+| 6. Preview + production check | waiting | — (mentor, browser) | needs 1–5 |
