@@ -12,6 +12,7 @@ Format:
 
 <!-- entries below -->
 
+- 2026-10-16 — Download button per photo live on production (#27, PR #29): saves the stored PNG byte-for-byte via Blob's `downloadUrl`. Preview check skipped (auto mode blocked the in-page test); checked on production instead.
 - 2026-10-16 — PDFs up to 20 MB upload on Vercel (#24, PR #26): browser uploads straight to a private Blob store with presigned URLs (OIDC), since connecting the store gave no read-write token. Checked on preview up to 19 MB; full production upload not re-run. Arc reconciled.
 - 2026-10-14 — Frontend live at https://pdf-image-extractor-web.vercel.app (#13, PR #20): new Vercel project `pdf-image-extractor-web` proxies `/api` to the backend project. Vercel Services tried first, failed twice on preview (backend packaging), dropped. Still open: Blob cleanup (#18).
 - 2026-10-14 — Uploads work on Vercel (#12, PR #17): images stored in a public Vercel Blob store `pdf-image-extractor-images`, pdfjs worker preloaded. Added three rules from the #10 reconcile (PR #16). Still open: frontend hosting (#13), Blob cleanup (#18).

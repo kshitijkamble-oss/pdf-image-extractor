@@ -168,9 +168,29 @@ The app has no login, so anyone can upload or get an upload token. Add login whe
 
 ## download-photo  <!-- id: b-20261016-003 -->
 - **tag:** feature
-- **status:** in-progress
+- **status:** done
 - **created:** 2026-10-16
 - **linked-phase:** docs/phases/2026-10-16-download-photo/
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/27
 
 Users can see the extracted photos but can't download them. Add a Download button per photo that saves the stored PNG as-is (full size, lossless) — the user chose this over pulling the original bytes out of the PDF.
+
+**Outcome:** done 2026-10-16 via PR #29: Download link per photo using Blob's `downloadUrl`; on production the saved file matches the stored PNG byte-for-byte. Preview check skipped by the user's choice; tested on production instead.
+
+## frontend-preview-uses-backend-preview  <!-- id: b-20261016-004 -->
+- **tag:** idea
+- **status:** open
+- **created:** 2026-10-16
+- **linked-phase:**
+- **gh-issue:**
+
+The frontend preview's `/api` goes to the production backend, so a PR's backend change can't be tested through the real app on preview. Point it at the same branch's backend preview. Found in download-photo, where the workaround was blocked by auto mode.
+
+## button-text-after-extract  <!-- id: b-20261016-005 -->
+- **tag:** feature
+- **status:** open
+- **created:** 2026-10-16
+- **linked-phase:**
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/32
+
+After a successful upload and extraction, the main button goes back to "Submit". Its text should match the new state, so the user knows the job is done and what pressing it again will do.

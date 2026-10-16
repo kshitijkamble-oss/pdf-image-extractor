@@ -3,7 +3,7 @@ topic: download-photo
 started: 2026-10-16
 updated: 2026-10-16
 backlog: b-20261016-003
-status: implement
+status: done
 ---
 
 # download-photo

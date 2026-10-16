@@ -99,4 +99,4 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 0. Plan Download button (stored PNG as-is) | done | mentee 27 (planner) — retired | 2 builder + 1 mentor task; `downloadUrl` on put result re-checked by mentor in node_modules types; approved by user 2026-10-16 |
 | 1. Shared `downloadUrl` + storeImage return value | done | mentee 28 (builder) — retired | shared+backend typecheck/lint pass; local upload → downloadUrl = imageUrl; Blob path typecheck only (preview will show); diff re-checked by mentor |
 | 2. Frontend Download link | done | mentee 29 (builder) — retired | plain `<a download>` link; local download through Vite proxy → same SHA256 as stored PNG; not clicked in a browser; whole-repo typecheck + lint re-run by mentor |
-| 3. Preview check | to do | — (mentor) | |
+| 3. Preview check → production check | done | — (mentor, browser + CLI) | preview test blocked 3× by auto mode; user chose prod check after merge (`53a30cf`); real click saved p1-1.png, same SHA256 as stored PNG; `content-disposition: attachment` |
