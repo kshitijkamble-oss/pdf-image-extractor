@@ -18,15 +18,18 @@ export class PdfService {
     }));
   }
 
-  async extractFromBlob(pathname: string): Promise<ExtractedPhoto[]> {
+  async extractFromBlob(
+    pathname: string,
+    oidcToken: string | undefined,
+  ): Promise<ExtractedPhoto[]> {
     try {
-      const buffer = await readPdf(pathname);
+      const buffer = await readPdf(pathname, oidcToken);
       if (buffer.subarray(0, 5).toString('latin1') !== '%PDF-') {
         throw new PdfBlobError('not-pdf', 'File is not a PDF');
       }
       return await this.extract(buffer);
     } finally {
-      await deletePdf(pathname);
+      await deletePdf(pathname, oidcToken);
     }
   }
 }

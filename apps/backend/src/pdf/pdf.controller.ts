@@ -16,28 +16,28 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { handleUpload, type HandleUploadBody } from '@vercel/blob/client';
+import { handleUploadPresigned, type HandleUploadPresignedBody } from '@vercel/blob/client';
 import type { IncomingMessage } from 'node:http';
 import { memoryStorage } from 'multer';
 import type { ExtractedPhoto } from '@repo/shared';
 import {
   MAX_PDF_BYTES,
-  PDF_UPLOAD_PREFIX,
   PdfBlobError,
+  blobApi,
   isClientUploadConfigured,
   isValidPdfPathname,
-  pdfBlobToken,
+  pdfCredentials,
+  pdfWebhookPublicKey,
+  resolveOidcToken,
 } from './pdf-blob-storage.js';
 import { PdfService } from './pdf.service.js';
-
-const UPLOAD_PATHNAME_PATTERN = /^[A-Za-z0-9._/-]+$/;
 
 function assertClientUploadConfigured(): void {
   if (!isClientUploadConfigured()) {
     throw new HttpException(
       {
         code: 'CLIENT_UPLOAD_NOT_CONFIGURED',
-        message: 'PDF Blob store is not connected: BLOB_PDF_READ_WRITE_TOKEN is missing.',
+        message: 'PDF Blob store is not connected: BLOB_PDF_STORE_ID or BLOB_PDF_WEBHOOK_PUBLIC_KEY is missing.',
       },
       HttpStatus.NOT_IMPLEMENTED,
     );
@@ -70,28 +70,36 @@ export class PdfController {
   @HttpCode(HttpStatus.OK)
   async blobToken(
     @Req() req: IncomingMessage,
-    @Body() body: HandleUploadBody,
+    @Body() body: HandleUploadPresignedBody,
   ): Promise<unknown> {
     assertClientUploadConfigured();
+    const credentials = pdfCredentials(resolveOidcToken(req));
     try {
-      return await handleUpload({
+      return await handleUploadPresigned({
         request: req,
         body,
-        token: pdfBlobToken(),
-        onBeforeGenerateToken: async (pathname) => {
-          if (
-            !pathname.startsWith(PDF_UPLOAD_PREFIX) ||
-            pathname.includes('..') ||
-            !pathname.endsWith('.pdf') ||
-            !UPLOAD_PATHNAME_PATTERN.test(pathname)
-          ) {
+        webhookPublicKey: pdfWebhookPublicKey(),
+        getSignedToken: async (pathname) => {
+          if (!isValidPdfPathname(pathname)) {
             throw new Error('Invalid upload pathname');
           }
-          return {
+          const validUntil = Date.now() + 10 * 60 * 1000;
+          const token = await blobApi.issueSignedToken({
+            pathname,
+            operations: ['put'],
             allowedContentTypes: ['application/pdf'],
             maximumSizeInBytes: MAX_PDF_BYTES,
-            validUntil: Date.now() + 10 * 60 * 1000,
-            addRandomSuffix: true,
+            validUntil,
+            ...credentials,
+          });
+          return {
+            token,
+            urlOptions: {
+              allowedContentTypes: ['application/pdf'],
+              maximumSizeInBytes: MAX_PDF_BYTES,
+              validUntil,
+              addRandomSuffix: true,
+            },
           };
         },
       });
@@ -104,7 +112,10 @@ export class PdfController {
 
   @Post('extract')
   @HttpCode(HttpStatus.OK)
-  async extract(@Body() body: unknown): Promise<ExtractedPhoto[]> {
+  async extract(
+    @Req() req: IncomingMessage,
+    @Body() body: unknown,
+  ): Promise<ExtractedPhoto[]> {
     assertClientUploadConfigured();
     const pathname =
       typeof body === 'object' && body !== null
@@ -114,7 +125,7 @@ export class PdfController {
       throw new BadRequestException('Invalid pathname');
     }
     try {
-      return await this.pdfService.extractFromBlob(pathname);
+      return await this.pdfService.extractFromBlob(pathname, resolveOidcToken(req));
     } catch (err) {
       if (err instanceof PdfBlobError) {
         if (err.kind === 'not-found') throw new NotFoundException(err.message);

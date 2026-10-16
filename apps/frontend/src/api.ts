@@ -1,7 +1,5 @@
-import { upload } from '@vercel/blob/client'
+import { uploadPresigned } from '@vercel/blob/client'
 import type { ExtractedPhoto } from '@repo/shared'
-
-const MULTIPART_THRESHOLD_BYTES = 5 * 1024 * 1024
 
 type ErrorBody = { message?: string } | null
 
@@ -15,7 +13,7 @@ function toBlobPathname(fileName: string): string {
   return `pdf-uploads/${base || 'upload'}.pdf`
 }
 
-// upload() hides the status and body of a failed token request, so ask the token route directly.
+// uploadPresigned() hides the status and body of a failed presigned URL request, so ask the token route directly.
 async function isClientUploadConfigured(): Promise<boolean> {
   const response = await fetch('/api/pdf/blob-token', {
     method: 'POST',
@@ -42,11 +40,10 @@ async function uploadPdfMultipart(file: File): Promise<ExtractedPhoto[]> {
 export async function uploadPdf(file: File): Promise<ExtractedPhoto[]> {
   if (!(await isClientUploadConfigured())) return uploadPdfMultipart(file)
 
-  const blob = await upload(toBlobPathname(file.name), file, {
+  const blob = await uploadPresigned(toBlobPathname(file.name), file, {
     access: 'private',
     handleUploadUrl: '/api/pdf/blob-token',
     contentType: 'application/pdf',
-    multipart: file.size > MULTIPART_THRESHOLD_BYTES,
   })
 
   const response = await fetch('/api/pdf/extract', {

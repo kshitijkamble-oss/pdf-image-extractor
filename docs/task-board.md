@@ -79,5 +79,15 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 2. Backend extract-from-blob route | done | mentee 20 (builder) — retired | stubbed checks: valid → photos + delete; non-PDF 400, oversize 413 (size and running cap), missing 404, all delete; URL/`..` pathnames 400 with no `get`; re-checked by mentor |
 | 3. Old upload route off on Vercel | done | mentee 21 (builder) — retired | guard before multer; VERCEL=1 → 410 `MULTIPART_UPLOAD_DISABLED`, unset → 201; `VERCEL=1` at runtime checked in Vercel docs; re-checked by mentor |
 | 4. Frontend client upload + fallback | done | mentee 22 (builder) — retired | preflight to blob-token (only 501 → multipart) because `upload()` hides the token response status; local fallback 501→201 via Vite proxy; real Blob path untested until preview; typecheck/lint/build re-run by mentor |
-| 5. Create private Blob store + env var | waiting | — (mentor) | |
+| 5. Create private Blob store + env var | blocked | — (user, dashboard) | store created + connected (prefix `BLOB_PDF`), but no read-write token: only `BLOB_PDF_STORE_ID` + `BLOB_PDF_WEBHOOK_PUBLIC_KEY`; plan change needed |
 | 6. Preview + production check | waiting | — (mentor, browser) | needs 1–5 |
+
+### Option A — presigned uploads with OIDC (user chose 2026-10-16)
+
+| Task | Status | Mentee | Notes |
+|------|--------|--------|-------|
+| A0. Re-plan for issueSignedToken + handleUploadPresigned | done | mentee 23 (planner) — retired | 4 builder tasks; mentor merged 1+2 (task 1 alone breaks controller typecheck); webhook-key-required claim re-checked in client.js 316–319; waiting for user OK |
+| A1. Backend: storeId + OIDC, handleUploadPresigned | done | mentee 24 (builder) — retired | stubbed checks pass (storeId+oidcToken, never token; missing OIDC → 500 before any SDK call); local 501s; token scoped to exact client pathname — suffix vs scope unverified until preview (fallback: scope `*`); re-checked by mentor |
+| A2. image-storage passes its own token | done | mentee 25 (builder) — retired | `token: BLOB_READ_WRITE_TOKEN` passed to `put`; typecheck errors only in A1 files mid-edit; re-run after A1 |
+| A3. Frontend: uploadPresigned, single PUT | done | mentee 26 (builder) — retired | `upload` → `uploadPresigned`, multipart removed; preflight still needed (status hidden); typecheck re-run by mentor |
+| A4. Checks, push, redeploy preview, browser check | waiting | — (mentor) | needs A1–A3 |
