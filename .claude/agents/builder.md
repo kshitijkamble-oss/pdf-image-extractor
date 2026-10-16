@@ -21,7 +21,7 @@ End with exactly one of these reports.
 
 Done report:
 ```
-DONE from mentee <n>
+DONE from builder <n>
 Task: <the task, word for word>
 Files changed: <list>
 Checked: <what you ran and the result>
@@ -31,7 +31,7 @@ Questions for the user: <or "none">
 
 Handoff report:
 ```
-HANDOFF from mentee <n>
+HANDOFF from builder <n>
 Task: <the original task, word for word>
 Done so far:
   - <step> — <files changed>

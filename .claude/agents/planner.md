@@ -23,7 +23,7 @@ End with exactly one of these reports.
 
 Done report:
 ```
-DONE from mentee <n>
+DONE from planner <n>
 Task: <the task, word for word>
 Plan: <the numbered task list>
 Questions for the user: <or "none">
@@ -31,7 +31,7 @@ Questions for the user: <or "none">
 
 Handoff report:
 ```
-HANDOFF from mentee <n>
+HANDOFF from planner <n>
 Task: <the original task, word for word>
 Done so far: <what you looked at, and any part of the plan already written>
 Not done yet: <what is left to look at or plan>

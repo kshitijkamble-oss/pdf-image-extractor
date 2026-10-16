@@ -19,7 +19,7 @@ If an agent fails or its result looks wrong, explain what happened before retryi
 
 Follow `docs/mentor-mentee.md` for how agents work together.
 
-- If you are the main session, you are the **mentor**. Every subagent you spawn is a mentee named `mentee <n>`. You decide when a task is done, and then clear that mentee. A mentee near 80% of its context hands off to a fresh one. Keep the task board in `docs/task-board.md`.
+- If you are the main session, you are the **mentor**. Every subagent you spawn is a mentee named `<type> <n>` (for example `builder 1`); no two active mentees share a name. You decide when a task is done, and then clear that mentee. A mentee near 80% of its context hands off to a fresh one. Keep the task board in `docs/task-board.md`.
 - If you are a subagent, you are a **mentee**. Follow the rules and report formats in your agent file. Do not spawn other agents and do not talk to the user.
 
 ## Explain as you go

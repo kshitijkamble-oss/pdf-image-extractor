@@ -17,10 +17,12 @@ How Claude agents work together in this project. One **mentor** leads. Any numbe
 
 ## 2. Naming
 
-- Every mentee is named `mentee <n>`, where `<n>` is the next unused number: `mentee 1`, `mentee 2`, `mentee 3`, …
-- Numbers are never reused in one session. If `mentee 2` is retired, the next one is still `mentee 4`, not `mentee 2`. This keeps the log easy to follow.
+- Every mentee is named after its agent type plus a number: `<type> <n>`. Examples: `builder 1`, `planner 1`, `explore 1`, `general-purpose 1`.
+- Each type counts up on its own within one arc: `builder 1`, `builder 2`, … A new arc starts again at 1. So there can be a `builder 1` and a `planner 1` at the same time.
+- No two active mentees may have the same name.
 - Pass the name as the Agent tool's `name` (and use it in the short `description`), so the mentor can reach it later with `SendMessage` by that name.
-- A mentee that takes over from another one says so: `mentee 4 (continues mentee 2)`.
+- A mentee that takes over from another one says so: `builder 2 (continues builder 1)`.
+- Names come back after a mentee retires, so on the task board write the arc next to the name, for example `builder 1 (download-photo)`. Old rows stay clear.
 
 ## 3. Spawning mentees
 
@@ -31,11 +33,11 @@ The user can ask for mentees at any time, for example:
 
 The mentor can also spawn mentees on its own when the plan needs them. Either way, the mentor:
 
-1. Picks the next free number.
-2. Picks the agent type that fits the task (`planner`, `builder`, later `tester`, `reviewer`). The type decides what tools the mentee has.
+1. Picks the agent type that fits the task (`planner`, `builder`, later `tester`, `reviewer`). The type decides what tools the mentee has.
+2. Picks the name: the type plus the next number for that type in this arc (section 2).
 3. Writes a task message (template in section 6).
 4. Records the new mentee on the task board.
-5. Tells the user: "Spawned `mentee 3` (builder) for task 2: add the login form."
+5. Tells the user: "Spawned `builder 1` for task 2: add the login form."
 
 Rules for running mentees at the same time:
 - Only run mentees in parallel when their tasks do not touch the same files.
@@ -65,8 +67,8 @@ The mentor keeps a short list like this, and updates it after every report:
 
 | Task | Status | Mentee | Notes |
 |------|--------|--------|-------|
-| 1. Set up project | done | mentee 1 | |
-| 2. Login form | in progress | mentee 3 (continues mentee 2) | handoff at step 3 of 5 |
+| 1. Set up project | done | builder 1 (setup) — retired | |
+| 2. Login form | in progress | builder 2 (login, continues builder 1) | handoff at step 3 of 5 |
 | 3. Tests | waiting | — | needs task 2 |
 
 If the mentor's own context is getting full, this board plus the latest handoff notes are enough to pick up the work again.
@@ -76,7 +78,7 @@ If the mentor's own context is getting full, this board plus the latest handoff 
 Each mentee starts with an empty memory, so the mentor's message must stand on its own:
 
 ```
-You are mentee <n>.
+You are <type> <n>, a mentee.
 Task: <one-line goal>
 Background: <what exists already, decisions made, files that matter>
 Done means: <how to tell it is finished>
@@ -109,7 +111,7 @@ Picking the handoff point a little early is fine. Picking it late is not.
 ### Handoff report format
 
 ```
-HANDOFF from mentee <n>
+HANDOFF from <type> <n>
 Task: <the original task, word for word>
 Done so far:
   - <step> — <files changed>
@@ -127,8 +129,8 @@ Next step: <the very next thing to do>
 1. **Check it.** Read the report. Quickly confirm the claims (for example, the files listed really changed). If the report is unclear, ask that mentee one follow-up question before retiring it.
 2. **Clear the mentee.** Follow the clearing checklist in section 8.
 3. **Update the task board.**
-4. **Reassign if work is left.** Spawn the next numbered mentee with a task message that contains the handoff report. Its context starts empty, holding only what it needs.
-5. **Tell the user**: "`mentee 2` handed off at 80% after 3 of 5 steps. Spawned `mentee 4` to finish steps 4–5."
+4. **Reassign if work is left.** Spawn a fresh mentee with a task message that contains the handoff report. Its context starts empty, holding only what it needs.
+5. **Tell the user**: "`builder 1` handed off at 80% after 3 of 5 steps. Spawned `builder 2` to finish steps 4–5."
 
 If nothing is left to do, the mentor just marks the task done and moves on.
 
@@ -193,13 +195,13 @@ A mentee is cleared **every time its task is done**. This is not optional, and t
 1. The mentee sends a done report.
 2. The mentor checks it: the right files changed, the checks the task asked for pass, and nothing outside the task was touched.
 3. Then one of these:
-   - **It is done.** The mentor clears the mentee right away: it marks the mentee `retired` and the task `done` on the task board. Then it tells the user in one line, for example: "Task 2 done. `mentee 3` cleared."
+   - **It is done.** The mentor clears the mentee right away: it marks the mentee `retired` and the task `done` on the task board. Then it tells the user in one line, for example: "Task 2 done. `builder 1` cleared."
    - **It is almost done** (a small fix is missing) and the mentee is well under budget. The mentor resumes it once with `SendMessage` to fix that one thing, then checks again.
    - **It is not done**, or the mentee is near its budget. The mentor writes a recovery note (section 8, "Forced clear"), clears the mentee, and gives the rest to a new mentee.
 
 Why clear even if the mentee still has room left? Its context is full of details about the old task. Using it for a new task would mix the two, and it would carry that weight for no reason. A new mentee per task is cleaner and cheaper. That is also why the "Resume or clear?" table below says to clear for a new, unrelated task.
 
-The only thing that keeps a done mentee from being cleared is if the user asks to keep it, for example: "keep `mentee 3` around, I want to ask it something."
+The only thing that keeps a done mentee from being cleared is if the user asks to keep it, for example: "keep `builder 1` around, I want to ask it something."
 
 ### Clearing checklist (for the mentor)
 
@@ -210,7 +212,7 @@ Do these in order every time a mentee is cleared:
 3. Ask any follow-up question **now**, while the mentee can still be reached. After step 4 it will not be asked again.
 4. Mark the mentee `retired` on the task board.
 5. Update the task's status and "Notes" column.
-6. If work is left: spawn the next numbered mentee with the task message from section 6, plus the handoff report pasted **in full**. Do not re-summarise it — each summary loses detail, like a game of telephone.
+6. If work is left: spawn a fresh mentee with the task message from section 6, plus the handoff report pasted **in full**. Do not re-summarise it — each summary loses detail, like a game of telephone.
 7. Tell the user what happened.
 
 ### Resume or clear?
@@ -269,4 +271,4 @@ Checked against the official subagent docs: https://code.claude.com/docs/en/sub-
 - A finished subagent **can be resumed** with `SendMessage`, and it keeps its full history. That is handy for a quick follow-up — but it is the opposite of clearing, so do not resume a mentee that has handed off.
 - The docs do **not** say a subagent can see its own context-usage percentage. That is why section 7 uses rough signs instead.
 - Subagents **auto-compact** (summarise their own history) when full, the same way the main session does. `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE` changes when that happens. Auto-compaction keeps a mentee alive but loses detail; the handoff in section 7 is meant to happen first, on purpose, with a clean written record.
-- Subagents **can spawn their own subagents** (up to three levels deep by default). In this project, mentees should **not** do that — all spawning goes through the mentor, so the user sees every agent and the numbering stays clean.
+- Subagents **can spawn their own subagents** (up to three levels deep by default). In this project, mentees should **not** do that — all spawning goes through the mentor, so the user sees every agent and no two active mentees share a name.
