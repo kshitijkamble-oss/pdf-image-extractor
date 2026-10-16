@@ -13,6 +13,7 @@ export class PdfService {
     return images.map((image) => ({
       pageNumber: image.pageNumber,
       imageUrl: image.imageUrl,
+      downloadUrl: image.downloadUrl,
       caption: image.caption,
       description: image.caption,
     }));

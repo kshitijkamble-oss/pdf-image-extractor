@@ -53,6 +53,7 @@ export interface ImageBoundingBox {
 export interface ExtractedImage {
   pageNumber: number;
   imageUrl: string;
+  downloadUrl: string;
   boundingBox: ImageBoundingBox;
   caption: string;
 }
@@ -259,11 +260,15 @@ export async function extractImages(
         if (!png) {
           return;
         }
-        const imageUrl = await storeImage(`${uploadId}/${fileName}`, png);
+        const { imageUrl, downloadUrl } = await storeImage(
+          `${uploadId}/${fileName}`,
+          png,
+        );
         const boundingBox = boundingBoxFromMatrix(ctm);
         images.push({
           pageNumber,
           imageUrl,
+          downloadUrl,
           boundingBox,
           caption: findCaption(boundingBox, textLines),
         });
