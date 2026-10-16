@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
 import type { ExtractedPhoto } from '@repo/shared';
+import { deletePdf, readPdf, PdfBlobError } from './pdf-blob-storage.js';
 import { extractImages } from './pdf-image-extractor.js';
 
 @Injectable()
@@ -15,5 +16,20 @@ export class PdfService {
       caption: image.caption,
       description: image.caption,
     }));
+  }
+
+  async extractFromBlob(
+    pathname: string,
+    oidcToken: string | undefined,
+  ): Promise<ExtractedPhoto[]> {
+    try {
+      const buffer = await readPdf(pathname, oidcToken);
+      if (buffer.subarray(0, 5).toString('latin1') !== '%PDF-') {
+        throw new PdfBlobError('not-pdf', 'File is not a PDF');
+      }
+      return await this.extract(buffer);
+    } finally {
+      await deletePdf(pathname, oidcToken);
+    }
   }
 }
