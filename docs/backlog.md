@@ -194,3 +194,12 @@ The frontend preview's `/api` goes to the production backend, so a PR's backend 
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/32
 
 After a successful upload and extraction, the main button goes back to "Submit". Its text should match the new state, so the user knows the job is done and what pressing it again will do.
+
+## download-button-alignment  <!-- id: b-20261016-006 -->
+- **tag:** bug
+- **status:** open
+- **created:** 2026-10-16
+- **linked-phase:** docs/phases/2026-10-16-download-button-alignment/
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/33
+
+The Download button under each photo is not lined up well. It sits right after the photo and description, so buttons land at different heights across cards. Agree the target look before building.

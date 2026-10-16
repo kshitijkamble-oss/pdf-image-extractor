@@ -100,3 +100,11 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 1. Shared `downloadUrl` + storeImage return value | done | mentee 28 (builder) — retired | shared+backend typecheck/lint pass; local upload → downloadUrl = imageUrl; Blob path typecheck only (preview will show); diff re-checked by mentor |
 | 2. Frontend Download link | done | mentee 29 (builder) — retired | plain `<a download>` link; local download through Vite proxy → same SHA256 as stored PNG; not clicked in a browser; whole-repo typecheck + lint re-run by mentor |
 | 3. Preview check → production check | done | — (mentor, browser + CLI) | preview test blocked 3× by auto mode; user chose prod check after merge (`53a30cf`); real click saved p1-1.png, same SHA256 as stored PNG; `content-disposition: attachment` |
+
+## 2026-10-16 — download-button-alignment (b-20261016-006, #33)
+
+| Task | Status | Mentee | Notes |
+|------|--------|--------|-------|
+| 0. Plan button alignment | done | planner 1 (download-button-alignment) — retired | 1 builder + 1 mentor task; mentor patched: `align-items: flex-start` on card (else images stretch), 8px gap step dropped (p margin covers it) |
+| 1. CSS: pin button bottom-left | done | builder 1 (download-button-alignment) — retired | App.css only; typecheck + lint pass; diff re-checked by mentor |
+| 2. Visual check + PR | in progress | — (mentor, browser) | local Chrome: button bottoms 650/578 → 636/636; text gap and image size unchanged |
