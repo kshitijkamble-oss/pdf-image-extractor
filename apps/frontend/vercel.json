@@ -3,6 +3,7 @@
   "framework": "vite",
   "buildCommand": "cd ../.. && pnpm turbo run build --filter=frontend",
   "outputDirectory": "dist",
+  "ignoreCommand": "git diff HEAD^ HEAD --quiet -- . ../../packages ../../package.json ../../pnpm-lock.yaml ../../pnpm-workspace.yaml ../../turbo.json",
   "rewrites": [
     {
       "source": "/api/:path*",
