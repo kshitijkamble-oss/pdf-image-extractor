@@ -148,12 +148,14 @@ Vercel project names didn't say which is frontend and which is backend. Renamed 
 
 ## upload-over-1mb-fails  <!-- id: b-20261016-001 -->
 - **tag:** bug
-- **status:** in-progress
+- **status:** done
 - **created:** 2026-10-16
 - **linked-phase:** docs/phases/2026-10-16-upload-over-1mb/
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/24
 
 PDF uploads over ~1 MB fail on Vercel with 503 (over 4.5 MB with 413), though the app allows 20 MB. Fix by uploading from the browser straight to a private Blob store (PDF-only, 20 MB, short-lived tokens), checking it is a PDF, and deleting it after extraction.
+
+**Outcome:** done 2026-10-16 via PR #26: browser uploads PDFs straight to a private Blob store with presigned URLs (OIDC). 0.29–19 MB checked on preview; a full upload on production not re-run yet.
 
 ## user-login  <!-- id: b-20261016-002 -->
 - **tag:** feature
@@ -163,3 +165,12 @@ PDF uploads over ~1 MB fail on Vercel with 503 (over 4.5 MB with 413), though th
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/25
 
 The app has no login, so anyone can upload or get an upload token. Add login when the app is shared beyond the owner or storage costs grow.
+
+## download-photo  <!-- id: b-20261016-003 -->
+- **tag:** feature
+- **status:** in-progress
+- **created:** 2026-10-16
+- **linked-phase:** docs/phases/2026-10-16-download-photo/
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/27
+
+Users can see the extracted photos but can't download them. Add a Download button per photo that saves the stored PNG as-is (full size, lossless) — the user chose this over pulling the original bytes out of the PDF.

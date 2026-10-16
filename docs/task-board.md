@@ -80,7 +80,7 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 3. Old upload route off on Vercel | done | mentee 21 (builder) — retired | guard before multer; VERCEL=1 → 410 `MULTIPART_UPLOAD_DISABLED`, unset → 201; `VERCEL=1` at runtime checked in Vercel docs; re-checked by mentor |
 | 4. Frontend client upload + fallback | done | mentee 22 (builder) — retired | preflight to blob-token (only 501 → multipart) because `upload()` hides the token response status; local fallback 501→201 via Vite proxy; real Blob path untested until preview; typecheck/lint/build re-run by mentor |
 | 5. Create private Blob store + env var | done (user, dashboard) | — | replaced by option A; store created + connected (prefix `BLOB_PDF`), but no read-write token: only `BLOB_PDF_STORE_ID` + `BLOB_PDF_WEBHOOK_PUBLIC_KEY`; plan change needed |
-| 6. Preview + production check | preview done (see A4) | — (mentor) | production check after user merges |
+| 6. Preview + production check | preview done (see A4) | — (mentor) | merged `9d31b5e`; prod `/api/health` 200, old route 410; full prod upload not re-run — arc reconciled with that caveat |
 
 ### Option A — presigned uploads with OIDC (user chose 2026-10-16)
 
@@ -91,3 +91,9 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | A2. image-storage passes its own token | done | mentee 25 (builder) — retired | `token: BLOB_READ_WRITE_TOKEN` passed to `put`; typecheck errors only in A1 files mid-edit; re-run after A1 |
 | A3. Frontend: uploadPresigned, single PUT | done | mentee 26 (builder) — retired | `upload` → `uploadPresigned`, multipart removed; preflight still needed (status hidden); typecheck re-run by mentor |
 | A4. Checks, push, redeploy preview, browser check | done | — (mentor, browser + CLI) | commit `201e0a0`; backend preview tested directly (frontend preview proxies to prod backend) with the real `api.ts` bundled; 0.29/1.3/4/5.5/19 MB → 2 photos each; 21 MB, fake PDF, URL/`..` pathnames, png/other-folder tokens rejected; old route 410; private store 0 files after; logs only known pdfjs warnings |
+
+## 2026-10-16 — download-photo (b-20261016-003, #27)
+
+| Task | Status | Mentee | Notes |
+|------|--------|--------|-------|
+| 0. Plan Download button (stored PNG as-is) | done | mentee 27 (planner) — retired | 2 builder + 1 mentor task; `downloadUrl` on put result re-checked by mentor in node_modules types; waiting for user OK |
