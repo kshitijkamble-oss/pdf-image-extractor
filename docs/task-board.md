@@ -107,4 +107,4 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 |------|--------|--------|-------|
 | 0. Plan button alignment | done | planner 1 (download-button-alignment) — retired | 1 builder + 1 mentor task; mentor patched: `align-items: flex-start` on card (else images stretch), 8px gap step dropped (p margin covers it) |
 | 1. CSS: pin button bottom-left | done | builder 1 (download-button-alignment) — retired | App.css only; typecheck + lint pass; diff re-checked by mentor |
-| 2. Visual check + PR | in progress | — (mentor, browser) | local Chrome: button bottoms 650/578 → 636/636; text gap and image size unchanged |
+| 2. Visual check + PR | done | — (mentor, browser) | local Chrome: button bottoms 650/578 → 636/636; text gap and image size unchanged; PR #35 merged (`2720b2e`), CSS live on production |
