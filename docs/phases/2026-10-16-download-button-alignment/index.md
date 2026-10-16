@@ -3,7 +3,7 @@ topic: download-button-alignment
 started: 2026-10-16
 updated: 2026-10-16
 backlog: b-20261016-006
-status: implement
+status: done
 ---
 
 # download-button-alignment
