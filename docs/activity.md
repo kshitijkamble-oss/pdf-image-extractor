@@ -12,6 +12,7 @@ Format:
 
 <!-- entries below -->
 
+- 2026-10-16 — PDFs up to 20 MB upload on Vercel (#24, PR #26): browser uploads straight to a private Blob store with presigned URLs (OIDC), since connecting the store gave no read-write token. Checked on preview up to 19 MB; full production upload not re-run. Arc reconciled.
 - 2026-10-14 — Frontend live at https://pdf-image-extractor-web.vercel.app (#13, PR #20): new Vercel project `pdf-image-extractor-web` proxies `/api` to the backend project. Vercel Services tried first, failed twice on preview (backend packaging), dropped. Still open: Blob cleanup (#18).
 - 2026-10-14 — Uploads work on Vercel (#12, PR #17): images stored in a public Vercel Blob store `pdf-image-extractor-images`, pdfjs worker preloaded. Added three rules from the #10 reconcile (PR #16). Still open: frontend hosting (#13), Blob cleanup (#18).
 - 2026-10-14 — Fixed the Vercel crash (#10): backend switched to ES modules (PR #11) and pdfjs font path made lazy (PR #14). Production health check returns 200. Uploads (#12) and frontend hosting (#13) still broken on Vercel. Installed Vercel CLI 63.1.2 and logged in.
