@@ -14,7 +14,7 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 
 | Task | Status | Mentee | Notes |
 |------|--------|--------|-------|
-| 0. Plan the ESM switch | done | mentee 2 (planner) — retired | 4 tasks; waiting for user OK |
+| 0. Plan the ESM switch | done | mentee 2 (planner) — retired | 4 tasks; approved by user 2026-10-16 |
 | 1. ESM flip in one pass | done | mentee 3 (builder) — retired | typecheck clean, re-checked by mentor |
 | 2. multer import (if needed) | skipped | — | not needed: named import loads fine at runtime |
 | 3. Drop `new Function` import hack | done | mentee 4 (builder) — retired | needed `as Promise<PdfJsModule>`; re-checked by mentor |
@@ -30,7 +30,7 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 
 | Task | Status | Mentee | Notes |
 |------|--------|--------|-------|
-| 0. Plan Blob storage + pdfjs worker fix | done | mentee 8 (planner) — retired | 4 builder tasks + 3 mentor steps; waiting for user OK |
+| 0. Plan Blob storage + pdfjs worker fix | done | mentee 8 (planner) — retired | 4 builder tasks + 3 mentor steps; approved by user 2026-10-16 |
 | 1. pdfjs worker via globalThis.pdfjsWorker | done | mentee 9 (builder) — retired | local upload 201; literal import in dist; re-checked by mentor |
 | A. Create + connect Blob store | done | — (mentor) | store `pdf-image-extractor-images` (public, iad1); only `BLOB_READ_WRITE_TOKEN` added, no `BLOB_STORE_ID` |
 | 2. Storage module + @vercel/blob@2.8.0 | done | mentee 10 (builder) — retired | local + "not connected" smoke tests pass; re-checked by mentor |
@@ -44,7 +44,7 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 
 | Task | Status | Mentee | Notes |
 |------|--------|--------|-------|
-| 0. Plan Vercel Services setup | done | mentee 12 (planner) — retired | 7 tasks, config only; build facts re-checked; waiting for user OK |
+| 0. Plan Vercel Services setup | done | mentee 12 (planner) — retired | 7 tasks, config only; build facts re-checked; approved by user 2026-10-16 |
 | 1. Add vercel.json | done | mentee 13 (builder) — retired | lint/typecheck/build pass; dev page + proxy 200; slugs `vite`/`nestjs` checked in vercel/vercel source |
 | 2. Local `vercel build` (optional) | skipped | — (mentor) | would use current settings (root `apps/backend`), so it cannot see the new vercel.json |
 | 3. Push, open PR, ask OK for settings | done | — (mentor) | PR #20; user OK'd settings change |
@@ -61,7 +61,7 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 
 | Task | Status | Mentee | Notes |
 |------|--------|--------|-------|
-| B0. Plan option B | done | mentee 16 (planner) — retired | 7 tasks; @repo/shared claim re-checked; waiting for user OK |
+| B0. Plan option B | done | mentee 16 (planner) — retired | 7 tasks; @repo/shared claim re-checked; approved by user 2026-10-16 |
 | B1. apps/frontend/vercel.json, delete root vercel.json | done | mentee 17 (builder) — retired | clean-state turbo build: shared then frontend; dev + proxy 200 |
 | B2. Create + connect frontend project | done | — (mentor) | `pdf-image-extractor-web` (prj_ZDfKYnOtevWspjMJOIux27TcLE02): root `apps/frontend`, Vite, Git-connected; backend settings unchanged |
 | B3. Push, wait for frontend preview | done | — (mentor) | commit `77a97bc`; both projects built; shared built before frontend |
@@ -74,7 +74,7 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 
 | Task | Status | Mentee | Notes |
 |------|--------|--------|-------|
-| 0. Plan browser → private Blob upload | done | mentee 18 (planner) — retired | 4 builder + 2 mentor tasks; `get`/`del` re-checked by mentor; "unit tests" swapped for scripted checks (no test setup in repo); waiting for user OK |
+| 0. Plan browser → private Blob upload | done | mentee 18 (planner) — retired | 4 builder + 2 mentor tasks; `get`/`del` re-checked by mentor; "unit tests" swapped for scripted checks (no test setup in repo); approved by user 2026-10-16 |
 | 1. Backend token route + pdf-blob-storage.ts | done | mentee 19 (builder) — retired | 501 without token, 400 bad pathname, 200 clientToken with fake token; no `onUploadCompleted` needed; random-suffix position unverified (preview will show); re-checked by mentor |
 | 2. Backend extract-from-blob route | done | mentee 20 (builder) — retired | stubbed checks: valid → photos + delete; non-PDF 400, oversize 413 (size and running cap), missing 404, all delete; URL/`..` pathnames 400 with no `get`; re-checked by mentor |
 | 3. Old upload route off on Vercel | done | mentee 21 (builder) — retired | guard before multer; VERCEL=1 → 410 `MULTIPART_UPLOAD_DISABLED`, unset → 201; `VERCEL=1` at runtime checked in Vercel docs; re-checked by mentor |
@@ -86,7 +86,7 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 
 | Task | Status | Mentee | Notes |
 |------|--------|--------|-------|
-| A0. Re-plan for issueSignedToken + handleUploadPresigned | done | mentee 23 (planner) — retired | 4 builder tasks; mentor merged 1+2 (task 1 alone breaks controller typecheck); webhook-key-required claim re-checked in client.js 316–319; waiting for user OK |
+| A0. Re-plan for issueSignedToken + handleUploadPresigned | done | mentee 23 (planner) — retired | 4 builder tasks; mentor merged 1+2 (task 1 alone breaks controller typecheck); webhook-key-required claim re-checked in client.js 316–319; approved by user 2026-10-16 |
 | A1. Backend: storeId + OIDC, handleUploadPresigned | done | mentee 24 (builder) — retired | stubbed checks pass (storeId+oidcToken, never token; missing OIDC → 500 before any SDK call); local 501s; token scoped to exact client pathname — suffix vs scope unverified until preview (fallback: scope `*`); re-checked by mentor |
 | A2. image-storage passes its own token | done | mentee 25 (builder) — retired | `token: BLOB_READ_WRITE_TOKEN` passed to `put`; typecheck errors only in A1 files mid-edit; re-run after A1 |
 | A3. Frontend: uploadPresigned, single PUT | done | mentee 26 (builder) — retired | `upload` → `uploadPresigned`, multipart removed; preflight still needed (status hidden); typecheck re-run by mentor |
@@ -96,4 +96,7 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 
 | Task | Status | Mentee | Notes |
 |------|--------|--------|-------|
-| 0. Plan Download button (stored PNG as-is) | done | mentee 27 (planner) — retired | 2 builder + 1 mentor task; `downloadUrl` on put result re-checked by mentor in node_modules types; waiting for user OK |
+| 0. Plan Download button (stored PNG as-is) | done | mentee 27 (planner) — retired | 2 builder + 1 mentor task; `downloadUrl` on put result re-checked by mentor in node_modules types; approved by user 2026-10-16 |
+| 1. Shared `downloadUrl` + storeImage return value | done | mentee 28 (builder) — retired | shared+backend typecheck/lint pass; local upload → downloadUrl = imageUrl; Blob path typecheck only (preview will show); diff re-checked by mentor |
+| 2. Frontend Download link | done | mentee 29 (builder) — retired | plain `<a download>` link; local download through Vite proxy → same SHA256 as stored PNG; not clicked in a browser; whole-repo typecheck + lint re-run by mentor |
+| 3. Preview check | to do | — (mentor) | |

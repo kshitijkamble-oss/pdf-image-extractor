@@ -12,7 +12,15 @@ export function usesBlobStorage(): boolean {
   return Boolean(imagesBlobToken());
 }
 
-export async function storeImage(pathname: string, png: Buffer): Promise<string> {
+export interface StoredImage {
+  imageUrl: string;
+  downloadUrl: string;
+}
+
+export async function storeImage(
+  pathname: string,
+  png: Buffer,
+): Promise<StoredImage> {
   const token = imagesBlobToken();
   if (token) {
     // Without an explicit token, @vercel/blob prefers OIDC + BLOB_STORE_ID over
@@ -22,7 +30,7 @@ export async function storeImage(pathname: string, png: Buffer): Promise<string>
       token,
       contentType: 'image/png',
     });
-    return blob.url;
+    return { imageUrl: blob.url, downloadUrl: blob.downloadUrl };
   }
   if (process.env.VERCEL) {
     throw new Error(
@@ -32,5 +40,6 @@ export async function storeImage(pathname: string, png: Buffer): Promise<string>
   const filePath = join(UPLOADS_ROOT, pathname);
   await mkdir(dirname(filePath), { recursive: true });
   await writeFile(filePath, png);
-  return `/api/images/${pathname}`;
+  const url = `/api/images/${pathname}`;
+  return { imageUrl: url, downloadUrl: url };
 }

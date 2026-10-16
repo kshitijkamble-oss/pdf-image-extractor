@@ -3,6 +3,9 @@ import type { ExtractedPhoto } from '@repo/shared'
 import { uploadPdf } from './api'
 import './App.css'
 
+const fileNameFromUrl = (url: string) =>
+  url.split('?')[0].split('/').pop() ?? 'photo.png'
+
 function App() {
   const [file, setFile] = useState<File | null>(null)
   const [photos, setPhotos] = useState<ExtractedPhoto[]>([])
@@ -54,6 +57,13 @@ function App() {
               {photo.description && photo.description !== photo.caption && (
                 <p className="description">{photo.description}</p>
               )}
+              <a
+                className="download-button"
+                href={photo.downloadUrl}
+                download={fileNameFromUrl(photo.imageUrl)}
+              >
+                Download
+              </a>
             </div>
           ))}
         </div>
