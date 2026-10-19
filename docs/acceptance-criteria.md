@@ -26,3 +26,14 @@ An item is finished only when both pass.
 - Local dev (`pnpm dev`) still works as before.
 
 **Blocked by** — none.
+
+## b-20261019-005 — upload-page-ux
+
+**Satisfies**
+- Title, hint, file picker, chosen file name and main button sit in one centered upload panel.
+- Dropping a PDF on the panel selects it like the file picker does; the panel highlights during a file drag; a non-PDF drop shows "Please drop a PDF file." and keeps the current file; a PDF dropped outside the panel does not open in the tab.
+- Button reads "Extract photos" (disabled with no file), "Extracting…" while working, disabled "Extracted ✓" after success, and "Extract photos" again after a new file or a failed extract.
+- After success: "Found 1 photo in <name>" / "Found N photos in <name>" above the grid; an empty result shows the "No photos found … no embedded images" box and no grid.
+- Photo grid, card click and preview pop-up still work.
+
+**Blocked by** — none.

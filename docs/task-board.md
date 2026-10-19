@@ -124,3 +124,15 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 0. Plan whole-card click opens preview | done | planner 1 (card-click-preview) — retired | click on card div, stopPropagation on card Download, image button kept as the one keyboard stop; layout re-checked by mentor in App.tsx; approved by user 2026-10-19 (zoom-in cursor, hover border) |
 | 1. Card click + Download stopPropagation + cursor/hover CSS | done | builder 1 (card-click-preview) — retired | App.tsx + App.css; `.photo-open` cursor set to inherit (buttons do not inherit cursor by default); typecheck + lint pass; diff + whole-repo checks re-run by mentor |
 | 2. Browser check | done | — (mentor, browser) | local Chrome, real clicks: image, page text, caption, blank card space all open the right photo; card Download (click + Enter) does not open pop-up (file save blocked by test hook, not saved); Enter on image button opens, arrow moves, Esc closes; hover border #ccc to #888 |
+
+## 2026-10-19 — upload-page-ux (b-20261019-005, #44)
+
+| Task | Status | Mentee | Notes |
+|------|--------|--------|-------|
+| 0. Plan upload panel, drag-and-drop, status line, button text | done | planner 1 (upload-page-ux) — retired | 3 tasks + 6 open questions; all approved by user 2026-10-19, plus empty-PDF message |
+| 1. Upload panel + button text | done | builder 1 (upload-page-ux) — retired | App.tsx + App.css; typecheck + lint pass; diff re-checked by mentor |
+| 2. Drag-and-drop on the panel | done | builder 2 (upload-page-ux) — retired | typecheck + lint pass; diff re-checked by mentor; stray `showPhoto =(` spacing slip handed to builder 3 |
+| 3. Status line + empty result | done | builder 3 (upload-page-ux) — retired | resultName state, .status.empty box, spacing fixed; typecheck + lint pass; diff re-checked by mentor |
+| 4. Browser check | done | — (mentor, headless Chrome) | Chrome extension could not reach localhost; ran headless Chrome via DevTools Protocol script instead. 25/26 pass; bug: picker keeps old file after a drop, re-picking it does nothing |
+| 5. Clear picker on drop | done | builder 4 (upload-page-ux) — retired | user approved fix 2026-10-19; file input ref cleared on PDF drop; typecheck + lint pass; diff re-checked by mentor |
+| 6. Browser re-check | done | — (mentor, headless Chrome) | 27/27 pass, incl. picker emptied on drop and re-pick works |

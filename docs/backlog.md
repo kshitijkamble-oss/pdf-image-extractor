@@ -243,3 +243,12 @@ The app has no tests; the photo preview was checked only by hand. Add real-brows
 Clicking anywhere on a photo card (not only the image) should open the preview pop-up. Clicking the Download button should still only download.
 
 **Outcome:** done 2026-10-19 via PR #42: the whole card opens the preview; the card's Download only downloads. Checked by hand in local Chrome.
+
+## upload-page-ux  <!-- id: b-20261019-005 -->
+- **tag:** feature
+- **status:** in-progress
+- **created:** 2026-10-19
+- **linked-phase:** docs/phases/2026-10-19-upload-page-ux/
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/44
+
+Improve placement and UX of the upload page: one upload panel, drag-and-drop, a result status line, and button text after extract. Folds in b-20261016-005 (#32), which closes with it.
