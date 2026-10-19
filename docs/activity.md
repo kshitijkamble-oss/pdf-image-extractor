@@ -12,6 +12,7 @@ Format:
 
 <!-- entries below -->
 
+- 2026-10-16 — Download buttons line up at the bottom left of each photo card (#33, PR #35): card is a flex column, button `margin-top: auto`. CSS only; checked locally in Chrome, live on production.
 - 2026-10-16 — Download button per photo live on production (#27, PR #29): saves the stored PNG byte-for-byte via Blob's `downloadUrl`. Preview check skipped (auto mode blocked the in-page test); checked on production instead.
 - 2026-10-16 — PDFs up to 20 MB upload on Vercel (#24, PR #26): browser uploads straight to a private Blob store with presigned URLs (OIDC), since connecting the store gave no read-write token. Checked on preview up to 19 MB; full production upload not re-run. Arc reconciled.
 - 2026-10-14 — Frontend live at https://pdf-image-extractor-web.vercel.app (#13, PR #20): new Vercel project `pdf-image-extractor-web` proxies `/api` to the backend project. Vercel Services tried first, failed twice on preview (backend packaging), dropped. Still open: Blob cleanup (#18).

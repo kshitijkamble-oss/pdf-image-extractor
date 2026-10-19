@@ -197,9 +197,11 @@ After a successful upload and extraction, the main button goes back to "Submit".
 
 ## download-button-alignment  <!-- id: b-20261016-006 -->
 - **tag:** bug
-- **status:** open
+- **status:** done
 - **created:** 2026-10-16
 - **linked-phase:** docs/phases/2026-10-16-download-button-alignment/
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/33
 
 The Download button under each photo is not lined up well. It sits right after the photo and description, so buttons land at different heights across cards. Agree the target look before building.
+
+**Outcome:** done 2026-10-16 via PR #35: card is a flex column and the button uses `margin-top: auto`, so buttons in a row line up bottom-left. Checked locally in Chrome (650/578 → 636/636 px); new CSS live on production.
