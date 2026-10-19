@@ -223,3 +223,21 @@ Users only see each extracted photo at card size. Clicking a photo should open a
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/38
 
 Found in photo-preview: the pop-up shows a photo at its real size, so small photos (e.g. 300×200) are barely bigger than on the card. Decide whether to scale them up (blurry) or leave them.
+
+## preview-browser-tests  <!-- id: b-20261019-003 -->
+- **tag:** feature
+- **status:** open
+- **created:** 2026-10-19
+- **linked-phase:**
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/40
+
+The app has no tests; the photo preview was checked only by hand. Add real-browser tests (user's choice over component tests) that click through the preview. Separate PR from #39.
+
+## card-click-preview  <!-- id: b-20261019-004 -->
+- **tag:** feature
+- **status:** in-progress
+- **created:** 2026-10-19
+- **linked-phase:** docs/phases/2026-10-19-card-click-preview/
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/41
+
+Clicking anywhere on a photo card (not only the image) should open the preview pop-up. Clicking the Download button should still only download.

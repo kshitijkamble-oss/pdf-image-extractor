@@ -116,3 +116,11 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 0. Brainstorm + plan photo preview pop-up | done | planner 1 (photo-preview) — retired | <dialog> chosen; MDN checked by mentor; tasks 1+2 merged after user answers; approved by user 2026-10-19 |
 | 1. Pop-up: open/close, caption, Download, arrows, keys | done | builder 1 (photo-preview) — retired | App.tsx + App.css; typecheck + lint pass; diff re-checked by mentor |
 | 2. Browser check | done | — (mentor, browser) | local Chrome: open, arrows + keys stop at ends, Esc, ×, outside click all work; inside clicks keep it open |
+
+## 2026-10-19 — card-click-preview (b-20261019-004, #41)
+
+| Task | Status | Mentee | Notes |
+|------|--------|--------|-------|
+| 0. Plan whole-card click opens preview | done | planner 1 (card-click-preview) — retired | click on card div, stopPropagation on card Download, image button kept as the one keyboard stop; layout re-checked by mentor in App.tsx; approved by user 2026-10-19 (zoom-in cursor, hover border) |
+| 1. Card click + Download stopPropagation + cursor/hover CSS | done | builder 1 (card-click-preview) — retired | App.tsx + App.css; `.photo-open` cursor set to inherit (buttons do not inherit cursor by default); typecheck + lint pass; diff + whole-repo checks re-run by mentor |
+| 2. Browser check | done | — (mentor, browser) | local Chrome, real clicks: image, page text, caption, blank card space all open the right photo; card Download (click + Enter) does not open pop-up (file save blocked by test hook, not saved); Enter on image button opens, arrow moves, Esc closes; hover border #ccc to #888 |

@@ -66,12 +66,12 @@ function App() {
       {photos.length > 0 && (
         <div className="photo-grid">
           {photos.map((photo, i) => (
-            <div className="photo-card" key={`${photo.imageUrl}-${i}`}>
-              <button
-                type="button"
-                className="photo-open"
-                onClick={() => setOpenIndex(i)}
-              >
+            <div
+              className="photo-card"
+              key={`${photo.imageUrl}-${i}`}
+              onClick={() => setOpenIndex(i)}
+            >
+              <button type="button" className="photo-open">
                 <img
                   src={photo.imageUrl}
                   alt={photo.caption || `Photo from page ${photo.pageNumber}`}
@@ -86,6 +86,7 @@ function App() {
                 className="download-button"
                 href={photo.downloadUrl}
                 download={fileNameFromUrl(photo.imageUrl)}
+                onClick={(e) => e.stopPropagation()}
               >
                 Download
               </a>
