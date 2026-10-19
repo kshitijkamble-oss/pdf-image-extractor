@@ -3,7 +3,7 @@ topic: card-click-preview
 started: 2026-10-19
 updated: 2026-10-19
 backlog: b-20261019-004
-status: implement
+status: done
 ---
 
 # card-click-preview
