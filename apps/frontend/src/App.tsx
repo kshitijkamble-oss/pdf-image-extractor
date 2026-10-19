@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
+import type { DragEvent } from 'react'
 import type { ExtractedPhoto } from '@repo/shared'
 import { uploadPdf } from './api'
 import './App.css'
+
+const isPdf = (file: File) =>
+  file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')
 
 const fileNameFromUrl = (url: string) =>
   url.split('?')[0].split('/').pop() ?? 'photo.png'
@@ -11,6 +15,11 @@ function App() {
   const [photos, setPhotos] = useState<ExtractedPhoto[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [done, setDone] = useState(false)
+  const [resultName, setResultName] = useState<string | null>(null)
+  const [dragging, setDragging] = useState(false)
+  const dragCounter = useRef(0)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const dialogRef = useRef<HTMLDialogElement>(null)
@@ -22,6 +31,19 @@ function App() {
     if (openIndex !== null && !dialog.open) dialog.showModal()
     if (openIndex === null && dialog.open) dialog.close()
   }, [openIndex])
+
+  // Without this, a PDF dropped outside the panel would open in the tab.
+  useEffect(() => {
+    const preventFileDrag = (e: globalThis.DragEvent) => {
+      if (e.dataTransfer?.types.includes('Files')) e.preventDefault()
+    }
+    window.addEventListener('dragover', preventFileDrag)
+    window.addEventListener('drop', preventFileDrag)
+    return () => {
+      window.removeEventListener('dragover', preventFileDrag)
+      window.removeEventListener('drop', preventFileDrag)
+    }
+  }, [])
 
   const showPhoto = (step: number) => {
     setOpenIndex((current) => {
@@ -35,15 +57,52 @@ function App() {
     setPhotos([])
     setOpenIndex(null)
     setError(null)
+    setDone(false)
+    setResultName(null)
+  }
+
+  const hasFiles = (e: { dataTransfer: DataTransfer | null }) =>
+    e.dataTransfer?.types.includes('Files') ?? false
+
+  const handleDragEnter = (e: DragEvent<HTMLElement>) => {
+    if (!hasFiles(e)) return
+    dragCounter.current += 1
+    setDragging(true)
+  }
+
+  const handleDragLeave = (e: DragEvent<HTMLElement>) => {
+    if (!hasFiles(e)) return
+    dragCounter.current = Math.max(dragCounter.current - 1, 0)
+    if (dragCounter.current === 0) setDragging(false)
+  }
+
+  const handleDragOver = (e: DragEvent<HTMLElement>) => {
+    if (hasFiles(e)) e.preventDefault()
+  }
+
+  const handleDrop = (e: DragEvent<HTMLElement>) => {
+    if (!hasFiles(e)) return
+    e.preventDefault()
+    dragCounter.current = 0
+    setDragging(false)
+    const dropped = e.dataTransfer.files[0]
+    if (!dropped) return
+    if (isPdf(dropped)) {
+      if (fileInputRef.current) fileInputRef.current.value = ''
+      handleFileChange(dropped)
+    } else setError('Please drop a PDF file.')
   }
 
   const handleSubmit = async () => {
     if (!file) return
     setLoading(true)
     setError(null)
+    setDone(false)
     try {
       const result = await uploadPdf(file)
       setPhotos(result)
+      setDone(true)
+      setResultName(file.name)
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err))
     } finally {
@@ -53,16 +112,44 @@ function App() {
 
   return (
     <main>
-      <h1>PDF Photo Extractor</h1>
-      <input
-        type="file"
-        accept=".pdf"
-        onChange={(e) => handleFileChange(e.target.files?.[0] ?? null)}
-      />
-      <button type="button" disabled={!file || loading} onClick={handleSubmit}>
-        {loading ? 'Extracting…' : 'Submit'}
-      </button>
+      <section
+        className={dragging ? 'upload-panel dragging' : 'upload-panel'}
+        onDragEnter={handleDragEnter}
+        onDragLeave={handleDragLeave}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+      >
+        <h1>PDF Photo Extractor</h1>
+        <p className="upload-hint">Drop a PDF here or choose one</p>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept=".pdf"
+          onChange={(e) => handleFileChange(e.target.files?.[0] ?? null)}
+        />
+        {file && <p className="file-name">{file.name}</p>}
+        <button
+          type="button"
+          disabled={!file || loading || done}
+          onClick={handleSubmit}
+        >
+          {loading ? 'Extracting…' : done ? 'Extracted ✓' : 'Extract photos'}
+        </button>
+      </section>
       {error && <p className="error">{error}</p>}
+      {done && !loading && !error && resultName && (
+        photos.length > 0 ? (
+          <p className="status">
+            Found {photos.length} {photos.length === 1 ? 'photo' : 'photos'} in{' '}
+            {resultName}
+          </p>
+        ) : (
+          <p className="status empty">
+            No photos found in {resultName}. This PDF has no embedded images —
+            try another PDF.
+          </p>
+        )
+      )}
       {photos.length > 0 && (
         <div className="photo-grid">
           {photos.map((photo, i) => (
