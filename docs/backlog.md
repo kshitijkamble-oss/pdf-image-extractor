@@ -235,9 +235,11 @@ The app has no tests; the photo preview was checked only by hand. Add real-brows
 
 ## card-click-preview  <!-- id: b-20261019-004 -->
 - **tag:** feature
-- **status:** in-progress
+- **status:** done
 - **created:** 2026-10-19
 - **linked-phase:** docs/phases/2026-10-19-card-click-preview/
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/41
 
 Clicking anywhere on a photo card (not only the image) should open the preview pop-up. Clicking the Download button should still only download.
+
+**Outcome:** done 2026-10-19 via PR #42: the whole card opens the preview; the card's Download only downloads. Checked by hand in local Chrome.
