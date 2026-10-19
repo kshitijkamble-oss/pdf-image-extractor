@@ -1,23 +1,114 @@
 main {
   max-width: 960px;
-  margin: 80px auto;
+  margin: 32px auto;
+  padding: 0 16px;
   text-align: center;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
+.app-header h1 {
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+}
+
 .upload-panel {
-  max-width: 480px;
+  max-width: 640px;
   width: 100%;
   margin: 0 auto;
   padding: 24px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+}
+
+.drop-area {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  padding: 40px 24px;
+  border: 2px dashed var(--accent);
+  border-radius: var(--radius);
+  background: var(--accent-soft);
+}
+
+.drop-icon {
+  color: var(--accent);
+}
+
+.drop-text {
+  margin: 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.choose-button,
+.primary-button {
+  padding: 8px 20px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: var(--on-accent);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.choose-button {
+  position: relative;
+}
+
+.choose-button:hover,
+.primary-button:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.choose-button:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.primary-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.file-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.file-name,
+.file-placeholder {
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-placeholder {
+  color: var(--text-muted);
 }
 
 .drop-overlay {
@@ -29,24 +120,31 @@ main {
   justify-content: center;
   background: rgba(0, 0, 0, 0.6);
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  outline: 3px dashed var(--accent);
+  outline-offset: -24px;
   pointer-events: none;
 }
 
-.upload-panel h1,
-.upload-panel p {
+.error {
   margin: 0;
+  color: var(--danger);
+  text-align: center;
 }
 
-.error {
-  color: #c0392b;
+.status {
+  margin: 0;
+  color: var(--text-muted);
+  text-align: center;
 }
 
 .status.empty {
-  padding: 12px 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background: rgba(136, 136, 136, 0.15);
+  padding: 24px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-muted);
+  color: var(--text);
 }
 
 .photo-grid {
@@ -57,17 +155,23 @@ main {
 }
 
 .photo-card {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 8px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  gap: 6px;
+  padding: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
   cursor: zoom-in;
+  transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .photo-card:hover {
-  border-color: #888;
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
 }
 
 .photo-card .download-button {
@@ -75,28 +179,52 @@ main {
 }
 
 .photo-card img {
-  max-width: 100%;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  background: var(--surface-muted);
 }
 
-.photo-card p + p {
-  margin-top: 0;
+.photo-card p {
+  margin: 0;
+}
+
+.page-number {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.photo-card .caption {
+  font-weight: normal;
+  color: var(--text);
+}
+
+.photo-card .description {
+  font-size: 0.9rem;
+  color: var(--text-muted);
 }
 
 .download-button {
   display: inline-block;
   margin-top: auto;
-  padding: 4px 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  color: inherit;
+  padding: 6px 14px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--accent);
+  font-weight: 600;
   text-decoration: none;
 }
 
 .download-button:hover {
-  border-color: #888;
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
 .photo-open {
+  width: 100%;
   padding: 0;
   border: none;
   background: none;
@@ -106,8 +234,11 @@ main {
 
 .photo-dialog {
   padding: 0;
-  border: none;
-  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
   max-width: 96vw;
   max-height: 96vh;
 }
@@ -129,6 +260,7 @@ main {
   max-width: 90vw;
   max-height: 70vh;
   object-fit: contain;
+  border-radius: var(--radius-sm);
 }
 
 .photo-dialog-content p {
@@ -139,6 +271,23 @@ main {
   position: absolute;
   top: 8px;
   right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--surface-muted);
+  color: var(--text);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.photo-dialog-close:hover {
+  background: var(--border);
 }
 
 .photo-dialog-actions {
@@ -147,6 +296,59 @@ main {
   gap: 12px;
 }
 
+.photo-dialog-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.photo-dialog-actions button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
 .photo-dialog .download-button {
   margin-top: 0;
+}
+
+@media (max-width: 600px) {
+  .app-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .drop-area {
+    padding: 24px 16px;
+  }
+
+  .file-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .primary-button {
+    width: 100%;
+  }
+
+  .photo-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+  }
+
+  .photo-dialog-content img {
+    max-width: 100%;
+  }
+
+  .photo-dialog {
+    max-width: calc(100vw - 24px);
+  }
 }

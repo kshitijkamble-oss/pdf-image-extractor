@@ -49,3 +49,17 @@ An item is finished only when both pass.
 - Photo grid, card click and preview pop-up still work.
 
 **Blocked by** — none.
+
+
+## b-20261019-007 — modern-look
+
+**Satisfies**
+- Blue accent; colors come from shared tokens with a light and a dark set that follows the system theme; text readable and no unthemed white boxes in dark mode.
+- Centered header with "PDF Photo Extractor" and the tagline "Pull every photo out of a PDF."
+- A dashed drop area with an upload icon, "Drop a PDF anywhere, or" and a styled "Choose a PDF" button; the native input is visually hidden but still reachable by keyboard (visible focus ring, Space/Enter opens the picker).
+- A row under the drop area with the file name (or "No file chosen") and the Extract button; long names are cut off with an ellipsis.
+- Photo cards, Download buttons, status line, "No photos found" box, error line, preview pop-up and drop overlay are restyled to match.
+- At about 375px wide: no sideways scrolling, the row stacks, the grid and pop-up fit the screen.
+- All behaviour from #44 and #46 still works: whole-page drop and overlay, non-PDF error, picker cleared on drop, button states, status line, card click opens the preview, pop-up arrows/keys/close, Download.
+
+**Blocked by** — none.

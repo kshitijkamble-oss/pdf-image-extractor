@@ -259,9 +259,20 @@ Improve placement and UX of the upload page: one upload panel, drag-and-drop, a 
 
 ## page-drop-zone  <!-- id: b-20261019-006 -->
 - **tag:** feature
-- **status:** in-progress
+- **status:** done
 - **created:** 2026-10-19
 - **linked-phase:** docs/phases/2026-10-19-page-drop-zone/
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/46
 
 Let a PDF be dropped anywhere on the page, not only on the upload panel, with a full-screen "Drop your PDF to select it" overlay during a file drag. Layout unchanged.
+
+**Outcome:** done 2026-10-19 via PR #47: window drop listeners and a full-screen pointer-events:none overlay; drags ignored while the pop-up is open. Headless Chrome check of 26 checks, 7 of 8 runs all pass; Esc-cancel and the Vercel preview not checked. Follow-up: b-20261019-007 (#48).
+
+## modern-look  <!-- id: b-20261019-007 -->
+- **tag:** feature
+- **status:** in-progress
+- **created:** 2026-10-19
+- **linked-phase:** docs/phases/2026-10-19-modern-look/
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/48
+
+The page looks plain and unfinished. Give it a clean, modern look: blue accent, light and dark themes, a header with tagline, a proper drop area with a styled "Choose a PDF" button, tidy photo cards, phone layout. Behaviour unchanged.

@@ -1,0 +1,7 @@
+# Implement — modern-look
+
+_Entered 2026-10-19._
+- Task 1 (builder 1): 14 tokens on `:root` with dark overrides (light accent #2563eb, dark #60a5fa); global box-sizing and focus ring; every hard-coded colour in App.css swapped for a token except the dark backdrop/overlay. Screenshot check (light/dark × 1280/375 px): themed, no sideways scroll.
+- Task 2 (builder 2): `app-header` + tagline; `upload-panel` card with `drop-area` (inline SVG icon, "Choose a PDF" label wrapping the visually hidden input), `file-row` with the name or "No file chosen" and `primary-button`; phone layout. JSX changed only inside `return`. Screenshots 6/6; behaviour check 29/29 incl. Tab reaching the hidden input with a focus ring. Mentor noticed the dashed drop-area border is barely visible (especially dark mode) — folded into task 3.
+- Task 3 (builder 3): CSS only — cards (surface, shadow, hover lift, 4:3 cropped thumbnails), outlined Download buttons, round dialog buttons, framed overlay, status/empty/error styling, phone grid; drop-area border `2px dashed var(--accent)`. `aspect-ratio` checked on MDN: Baseline widely available since September 2021.
+- Browser check (headless Chrome): screenshots light/dark × desktop/phone 6/6 (no sideways scroll, pop-up fits a phone); whole-page drop test 29/29 (incl. keyboard reaching the hidden input); #44 upload test 23/27 — the 4 misses assert the old design (panel children, panel border, old hint text, panel drag highlight removed in #46), not broken behaviour.

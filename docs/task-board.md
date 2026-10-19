@@ -145,3 +145,13 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 1. Window drag handling + overlay | done | builder 1 (page-drop-zone) — retired | user answers 2026-10-19: ignore while pop-up open, hint "anywhere", dark overlay; typecheck + lint pass; diff re-checked by mentor |
 | 2. Harden drag-leave (only if needed) | skipped | — | leaving the window clears the overlay (0/5 stuck) |
 | 3. Browser check | done | — (mentor, headless Chrome) | 26 checks; 7 of 8 runs all pass, 1 run missed the photo-card drop (cause unknown, not reproduced) |
+
+## 2026-10-19 — modern-look (b-20261019-007, #48)
+
+| Task | Status | Mentee | Notes |
+|------|--------|--------|-------|
+| 0. Plan the redesign | done | planner 1 (modern-look) — retired | 3 tasks; 7 questions: 3 answered by user, 4 by mentor (no tests exist) |
+| 1. Tokens + light/dark theme | done | builder 1 (modern-look) — retired | 14 tokens, dark overrides; typecheck + lint pass; diff re-checked by mentor; screenshots light/dark x desktop/phone, no sideways scroll |
+| 2. Header + upload area | done | builder 2 (modern-look) — retired | JSX only inside return; typecheck + lint pass; diff re-checked by mentor; screenshots 6/6, behaviour 29/29 (incl. Tab reaches hidden input, focus ring); faint dashed border handed to task 3 |
+| 3. Cards, buttons, dialog polish | done | builder 3 (modern-look) — retired | CSS only; dashed border now accent; typecheck + lint pass; diff re-checked by mentor |
+| 4. Browser check (light + dark, desktop + 375px) | done | — (mentor, headless Chrome) | screenshots 6/6; whole-page drop 29/29; #44 upload checks 23/27 — the 4 misses check the old design (old panel layout, border, hint, panel highlight) |
