@@ -108,3 +108,11 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 0. Plan button alignment | done | planner 1 (download-button-alignment) — retired | 1 builder + 1 mentor task; mentor patched: `align-items: flex-start` on card (else images stretch), 8px gap step dropped (p margin covers it) |
 | 1. CSS: pin button bottom-left | done | builder 1 (download-button-alignment) — retired | App.css only; typecheck + lint pass; diff re-checked by mentor |
 | 2. Visual check + PR | done | — (mentor, browser) | local Chrome: button bottoms 650/578 → 636/636; text gap and image size unchanged; PR #35 merged (`2720b2e`), CSS live on production |
+
+## 2026-10-19 — photo-preview (b-20261019-001, #37)
+
+| Task | Status | Mentee | Notes |
+|------|--------|--------|-------|
+| 0. Brainstorm + plan photo preview pop-up | done | planner 1 (photo-preview) — retired | <dialog> chosen; MDN checked by mentor; tasks 1+2 merged after user answers; approved by user 2026-10-19 |
+| 1. Pop-up: open/close, caption, Download, arrows, keys | done | builder 1 (photo-preview) — retired | App.tsx + App.css; typecheck + lint pass; diff re-checked by mentor |
+| 2. Browser check | done | — (mentor, browser) | local Chrome: open, arrows + keys stop at ends, Esc, ×, outside click all work; inside clicks keep it open |
