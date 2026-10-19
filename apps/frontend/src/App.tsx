@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
-import type { DragEvent } from 'react'
 import type { ExtractedPhoto } from '@repo/shared'
 import { uploadPdf } from './api'
 import './App.css'
 
 const isPdf = (file: File) =>
   file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')
+
+const hasFiles = (e: globalThis.DragEvent) =>
+  e.dataTransfer?.types.includes('Files') ?? false
 
 const fileNameFromUrl = (url: string) =>
   url.split('?')[0].split('/').pop() ?? 'photo.png'
@@ -32,16 +34,55 @@ function App() {
     if (openIndex === null && dialog.open) dialog.close()
   }, [openIndex])
 
-  // Without this, a PDF dropped outside the panel would open in the tab.
+  // The whole window is the drop zone; preventDefault stops the browser
+  // from opening a dropped PDF in the tab.
   useEffect(() => {
-    const preventFileDrag = (e: globalThis.DragEvent) => {
-      if (e.dataTransfer?.types.includes('Files')) e.preventDefault()
+    const dialogOpen = () => dialogRef.current?.open ?? false
+
+    const onDragEnter = (e: globalThis.DragEvent) => {
+      if (!hasFiles(e) || dialogOpen()) return
+      dragCounter.current += 1
+      setDragging(true)
     }
-    window.addEventListener('dragover', preventFileDrag)
-    window.addEventListener('drop', preventFileDrag)
+
+    const onDragLeave = (e: globalThis.DragEvent) => {
+      if (!hasFiles(e) || dialogOpen()) return
+      dragCounter.current = Math.max(dragCounter.current - 1, 0)
+      if (dragCounter.current === 0) setDragging(false)
+    }
+
+    const onDragOver = (e: globalThis.DragEvent) => {
+      if (hasFiles(e)) e.preventDefault()
+    }
+
+    const onDrop = (e: globalThis.DragEvent) => {
+      if (!hasFiles(e)) return
+      e.preventDefault()
+      dragCounter.current = 0
+      setDragging(false)
+      if (dialogOpen()) return
+      const dropped = e.dataTransfer?.files[0]
+      if (!dropped) return
+      if (isPdf(dropped)) {
+        if (fileInputRef.current) fileInputRef.current.value = ''
+        setFile(dropped)
+        setPhotos([])
+        setOpenIndex(null)
+        setError(null)
+        setDone(false)
+        setResultName(null)
+      } else setError('Please drop a PDF file.')
+    }
+
+    window.addEventListener('dragenter', onDragEnter)
+    window.addEventListener('dragleave', onDragLeave)
+    window.addEventListener('dragover', onDragOver)
+    window.addEventListener('drop', onDrop)
     return () => {
-      window.removeEventListener('dragover', preventFileDrag)
-      window.removeEventListener('drop', preventFileDrag)
+      window.removeEventListener('dragenter', onDragEnter)
+      window.removeEventListener('dragleave', onDragLeave)
+      window.removeEventListener('dragover', onDragOver)
+      window.removeEventListener('drop', onDrop)
     }
   }, [])
 
@@ -59,38 +100,6 @@ function App() {
     setError(null)
     setDone(false)
     setResultName(null)
-  }
-
-  const hasFiles = (e: { dataTransfer: DataTransfer | null }) =>
-    e.dataTransfer?.types.includes('Files') ?? false
-
-  const handleDragEnter = (e: DragEvent<HTMLElement>) => {
-    if (!hasFiles(e)) return
-    dragCounter.current += 1
-    setDragging(true)
-  }
-
-  const handleDragLeave = (e: DragEvent<HTMLElement>) => {
-    if (!hasFiles(e)) return
-    dragCounter.current = Math.max(dragCounter.current - 1, 0)
-    if (dragCounter.current === 0) setDragging(false)
-  }
-
-  const handleDragOver = (e: DragEvent<HTMLElement>) => {
-    if (hasFiles(e)) e.preventDefault()
-  }
-
-  const handleDrop = (e: DragEvent<HTMLElement>) => {
-    if (!hasFiles(e)) return
-    e.preventDefault()
-    dragCounter.current = 0
-    setDragging(false)
-    const dropped = e.dataTransfer.files[0]
-    if (!dropped) return
-    if (isPdf(dropped)) {
-      if (fileInputRef.current) fileInputRef.current.value = ''
-      handleFileChange(dropped)
-    } else setError('Please drop a PDF file.')
   }
 
   const handleSubmit = async () => {
@@ -112,15 +121,9 @@ function App() {
 
   return (
     <main>
-      <section
-        className={dragging ? 'upload-panel dragging' : 'upload-panel'}
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
-      >
+      <section className="upload-panel">
         <h1>PDF Photo Extractor</h1>
-        <p className="upload-hint">Drop a PDF here or choose one</p>
+        <p className="upload-hint">Drop a PDF anywhere or choose one</p>
         <input
           ref={fileInputRef}
           type="file"
@@ -239,6 +242,11 @@ function App() {
           </div>
         )}
       </dialog>
+      {dragging && (
+        <div className="drop-overlay" aria-hidden="true">
+          Drop your PDF to select it
+        </div>
+      )}
     </main>
   )
 }
