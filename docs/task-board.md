@@ -136,3 +136,12 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 4. Browser check | done | — (mentor, headless Chrome) | Chrome extension could not reach localhost; ran headless Chrome via DevTools Protocol script instead. 25/26 pass; bug: picker keeps old file after a drop, re-picking it does nothing |
 | 5. Clear picker on drop | done | builder 4 (upload-page-ux) — retired | user approved fix 2026-10-19; file input ref cleared on PDF drop; typecheck + lint pass; diff re-checked by mentor |
 | 6. Browser re-check | done | — (mentor, headless Chrome) | 27/27 pass, incl. picker emptied on drop and re-pick works |
+
+## 2026-10-19 — page-drop-zone (b-20261019-006, #46)
+
+| Task | Status | Mentee | Notes |
+|------|--------|--------|-------|
+| 0. Plan whole-page drop zone + overlay | done | planner 1 (page-drop-zone) — retired | window listeners + pointer-events:none overlay; 1 task + optional hardening; 5 open questions, waiting for user |
+| 1. Window drag handling + overlay | done | builder 1 (page-drop-zone) — retired | user answers 2026-10-19: ignore while pop-up open, hint "anywhere", dark overlay; typecheck + lint pass; diff re-checked by mentor |
+| 2. Harden drag-leave (only if needed) | skipped | — | leaving the window clears the overlay (0/5 stuck) |
+| 3. Browser check | done | — (mentor, headless Chrome) | 26 checks; 7 of 8 runs all pass, 1 run missed the photo-card drop (cause unknown, not reproduced) |

@@ -188,12 +188,14 @@ The frontend preview's `/api` goes to the production backend, so a PR's backend 
 
 ## button-text-after-extract  <!-- id: b-20261016-005 -->
 - **tag:** feature
-- **status:** open
+- **status:** done
 - **created:** 2026-10-16
-- **linked-phase:**
+- **linked-phase:** docs/phases/2026-10-19-upload-page-ux/
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/32
 
 After a successful upload and extraction, the main button goes back to "Submit". Its text should match the new state, so the user knows the job is done and what pressing it again will do.
+
+**Outcome:** done 2026-10-19 via PR #45 (folded into b-20261019-005): the button reads "Extracted ✓" (disabled) after a successful extract, and "Extract photos" again when a new file is chosen.
 
 ## download-button-alignment  <!-- id: b-20261016-006 -->
 - **tag:** bug
@@ -246,9 +248,20 @@ Clicking anywhere on a photo card (not only the image) should open the preview p
 
 ## upload-page-ux  <!-- id: b-20261019-005 -->
 - **tag:** feature
-- **status:** in-progress
+- **status:** done
 - **created:** 2026-10-19
 - **linked-phase:** docs/phases/2026-10-19-upload-page-ux/
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/44
 
 Improve placement and UX of the upload page: one upload panel, drag-and-drop, a result status line, and button text after extract. Folds in b-20261016-005 (#32), which closes with it.
+
+**Outcome:** done 2026-10-19 via PR #45: upload panel, drag-and-drop, status line with an empty-result box, button text. Local headless Chrome check 27/27; Vercel preview built but not clicked. Follow-up: b-20261019-006 (#46).
+
+## page-drop-zone  <!-- id: b-20261019-006 -->
+- **tag:** feature
+- **status:** in-progress
+- **created:** 2026-10-19
+- **linked-phase:** docs/phases/2026-10-19-page-drop-zone/
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/46
+
+Let a PDF be dropped anywhere on the page, not only on the upload panel, with a full-screen "Drop your PDF to select it" overlay during a file drag. Layout unchanged.

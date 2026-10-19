@@ -37,3 +37,15 @@ An item is finished only when both pass.
 - Photo grid, card click and preview pop-up still work.
 
 **Blocked by** — none.
+
+
+## b-20261019-006 — page-drop-zone
+
+**Satisfies**
+- Dropping a PDF on the upload panel, the photo grid or blank page space selects it; extraction does not start.
+- A full-screen "Drop your PDF to select it" overlay shows during a file drag over the window and goes away on drop or when the drag leaves the window.
+- Dragging non-file content (selected text) shows no overlay.
+- #44 behaviour kept: non-PDF drop shows "Please drop a PDF file." and keeps the current file; a PDF drop empties the native picker; nothing opens in the tab.
+- Photo grid, card click and preview pop-up still work.
+
+**Blocked by** — none.

@@ -12,6 +12,7 @@ Format:
 
 <!-- entries below -->
 
+- 2026-10-19 — Upload page reworked (#44, PR #45): one upload panel, drag-and-drop, "Found N photos" line and a "No photos found" box, button text fixed (#32). Browser check run in headless Chrome over the DevTools Protocol (27/27), because the Chrome extension was blocked on localhost and vercel.app. Follow-up: whole-page drop zone (#46).
 - 2026-10-16 — Download buttons line up at the bottom left of each photo card (#33, PR #35): card is a flex column, button `margin-top: auto`. CSS only; checked locally in Chrome, live on production.
 - 2026-10-16 — Download button per photo live on production (#27, PR #29): saves the stored PNG byte-for-byte via Blob's `downloadUrl`. Preview check skipped (auto mode blocked the in-page test); checked on production instead.
 - 2026-10-16 — PDFs up to 20 MB upload on Vercel (#24, PR #26): browser uploads straight to a private Blob store with presigned URLs (OIDC), since connecting the store gave no read-write token. Checked on preview up to 19 MB; full production upload not re-run. Arc reconciled.

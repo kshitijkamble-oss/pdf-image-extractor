@@ -3,7 +3,7 @@ topic: upload-page-ux
 started: 2026-10-19
 updated: 2026-10-19
 backlog: b-20261019-005
-status: implement
+status: done
 ---
 
 # upload-page-ux
