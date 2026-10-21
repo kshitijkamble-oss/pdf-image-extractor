@@ -167,3 +167,4 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 5. Docs: env vars | done | — (mentor) | no env-var doc exists in repo and STATE.md is generated; recorded in arc implement.md |
 | 6. Clear message for client-upload failure | done | builder 5 (bot-check) — retired | exact-message match (BlobError not exported from /client); re-checked by mentor |
 | 7. Local browser check | done | — (mentor) | headless Chrome, test keys: 5/5 (script loaded, token sent on upload, probe tokenless, "Found 2 photos", widget cleaned up) |
+| 8. Fix Vercel TS error in turnstile.guard.ts | done | builder 6 (bot-check) — retired | @vercel/node type check has no realpath, so undici-types (pnpm symlink) did not resolve; added undici-types ~8.9.0 devDependency; Vercel-style repro passes |
