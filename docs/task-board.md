@@ -168,3 +168,4 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 6. Clear message for client-upload failure | done | builder 5 (bot-check) — retired | exact-message match (BlobError not exported from /client); re-checked by mentor |
 | 7. Local browser check | done | — (mentor) | headless Chrome, test keys: 5/5 (script loaded, token sent on upload, probe tokenless, "Found 2 photos", widget cleaned up) |
 | 8. Fix Vercel TS error in turnstile.guard.ts | done | builder 6 (bot-check) — retired | @vercel/node type check has no realpath, so undici-types (pnpm symlink) did not resolve; added undici-types ~8.9.0 devDependency; Vercel-style repro passes |
+| 9. Preview check | done | — (mentor) | health 200, probe 400 (unchanged), no/fake token 403, /upload 410; logs clean |
