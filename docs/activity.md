@@ -12,6 +12,8 @@ Format:
 
 <!-- entries below -->
 
+- 2026-10-21 — GitHub repo has a landing page (#52, PR #53): README with what the app does, live link, local run, setting names, layout. Description, topics set; homepage fixed — it pointed at the backend (404 at `/`), now the frontend.
+
 - 2026-10-19 — Whole page is the PDF drop zone (#46, PR #47): window listeners plus a full-screen overlay; drags ignored while the preview pop-up is open. The branch policy blocked Claude's merge, so the user merged. Follow-up: redesign (#48).
 - 2026-10-19 — Upload page reworked (#44, PR #45): one upload panel, drag-and-drop, "Found N photos" line and a "No photos found" box, button text fixed (#32). Browser check run in headless Chrome over the DevTools Protocol (27/27), because the Chrome extension was blocked on localhost and vercel.app. Follow-up: whole-page drop zone (#46).
 - 2026-10-16 — Download buttons line up at the bottom left of each photo card (#33, PR #35): card is a flex column, button `margin-top: auto`. CSS only; checked locally in Chrome, live on production.
