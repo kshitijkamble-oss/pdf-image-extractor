@@ -285,3 +285,12 @@ The page looks plain and unfinished. Give it a clean, modern look: blue accent, 
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/50
 
 The app has no login, so bots can get upload tokens. Add a captcha that the server checks before it hands out an upload token. Captcha only, no rate limit.
+
+## github-readme  <!-- id: b-20261021-001 -->
+- **tag:** feature
+- **status:** in-progress
+- **created:** 2026-10-21
+- **linked-phase:** docs/phases/2026-10-21-github-readme/
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/52
+
+The GitHub repo has no README and no description, so its page is empty. Add a README.md (what the app does, live link, how to run it) and set the repo's description and topics.

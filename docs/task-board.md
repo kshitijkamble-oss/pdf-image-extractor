@@ -169,3 +169,13 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 7. Local browser check | done | — (mentor) | headless Chrome, test keys: 5/5 (script loaded, token sent on upload, probe tokenless, "Found 2 photos", widget cleaned up) |
 | 8. Fix Vercel TS error in turnstile.guard.ts | done | builder 6 (bot-check) — retired | @vercel/node type check has no realpath, so undici-types (pnpm symlink) did not resolve; added undici-types ~8.9.0 devDependency; Vercel-style repro passes |
 | 9. Preview check | done | — (mentor) | health 200, probe 400 (unchanged), no/fake token 403, /upload 410; logs clean |
+
+## 2026-10-21 — github-readme (b-20261021-001, #52)
+
+| Task | Status | Mentee | Notes |
+|------|--------|--------|-------|
+| 0. Plan the README + repo description | done | planner 1 — retired | 4 tasks (1 builder, 3 mentor); waiting for user OK |
+| 1. Write README.md | done | builder 1 — retired | facts spot-checked by mentor (503 guard, 20 MB, uploads folder, vercel.json) |
+| 2. Live link check | done | — (mentor) | -frontend and -web 200 at /; -two is the backend |
+| 3. Repo description, topics, homepage | done | — (mentor) | set with gh repo edit; confirmed with gh repo view |
+| 4. Commit, PR, close #52 | in-progress | — (mentor) | PR opened; close #52 after merge |
