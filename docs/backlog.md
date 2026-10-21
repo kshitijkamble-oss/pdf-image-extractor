@@ -276,3 +276,12 @@ Let a PDF be dropped anywhere on the page, not only on the upload panel, with a 
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/48
 
 The page looks plain and unfinished. Give it a clean, modern look: blue accent, light and dark themes, a header with tagline, a proper drop area with a styled "Choose a PDF" button, tidy photo cards, phone layout. Behaviour unchanged.
+
+## bot-check  <!-- id: b-20261019-008 -->
+- **tag:** feature
+- **status:** in-progress
+- **created:** 2026-10-19
+- **linked-phase:** docs/phases/2026-10-19-bot-check/
+- **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/50
+
+The app has no login, so bots can get upload tokens. Add a captcha that the server checks before it hands out an upload token. Captcha only, no rate limit.

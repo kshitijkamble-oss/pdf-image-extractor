@@ -31,6 +31,7 @@ import {
   resolveOidcToken,
 } from './pdf-blob-storage.js';
 import { PdfService } from './pdf.service.js';
+import { TurnstileGuard } from './turnstile.guard.js';
 
 function assertClientUploadConfigured(): void {
   if (!isClientUploadConfigured()) {
@@ -67,6 +68,7 @@ export class PdfController {
   constructor(private readonly pdfService: PdfService) {}
 
   @Post('blob-token')
+  @UseGuards(TurnstileGuard)
   @HttpCode(HttpStatus.OK)
   async blobToken(
     @Req() req: IncomingMessage,
@@ -137,7 +139,7 @@ export class PdfController {
   }
 
   @Post('upload')
-  @UseGuards(MultipartUploadGuard)
+  @UseGuards(MultipartUploadGuard, TurnstileGuard)
   @UseInterceptors(
     FileInterceptor('file', {
       storage: memoryStorage(),

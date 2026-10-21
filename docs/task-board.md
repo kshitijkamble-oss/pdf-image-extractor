@@ -155,3 +155,17 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 2. Header + upload area | done | builder 2 (modern-look) — retired | JSX only inside return; typecheck + lint pass; diff re-checked by mentor; screenshots 6/6, behaviour 29/29 (incl. Tab reaches hidden input, focus ring); faint dashed border handed to task 3 |
 | 3. Cards, buttons, dialog polish | done | builder 3 (modern-look) — retired | CSS only; dashed border now accent; typecheck + lint pass; diff re-checked by mentor |
 | 4. Browser check (light + dark, desktop + 375px) | done | — (mentor, headless Chrome) | screenshots 6/6; whole-page drop 29/29; #44 upload checks 23/27 — the 4 misses check the old design (old panel layout, border, hint, panel highlight) |
+## 2026-10-19 — bot-check (b-20261019-008, #50)
+
+| Task | Status | Mentee | Notes |
+|------|--------|--------|-------|
+| 0. Plan Turnstile check on blob-token + upload | done | planner 1 (bot-check) — retired | 5 builder tasks + mentor steps A–E; waiting for user OK |
+| 1. Backend TurnstileGuard | done | builder 1 (bot-check) — retired | one fix round: skips limited to blob-token; re-checked by mentor |
+| 2. Apply guard to blob-token + upload | done | builder 2 (bot-check) — retired | local a–e pass (501, 403, pass, 403/201, 503); test left 2 folders in uploads/ (gitignored) |
+| 3. Frontend widget + token helper | done | builder 3 (bot-check) — retired | turnstile.ts, vite-env.d.ts, .env.example, !.env.example in .gitignore (asked user); not run in browser yet |
+| 4. Send token from api.ts | done | builder 4 (bot-check) — retired | headers go only to blob-token, not Blob PUT; client-upload 403 shows vague BlobError (asked user) |
+| 5. Docs: env vars | done | — (mentor) | no env-var doc exists in repo and STATE.md is generated; recorded in arc implement.md |
+| 6. Clear message for client-upload failure | done | builder 5 (bot-check) — retired | exact-message match (BlobError not exported from /client); re-checked by mentor |
+| 7. Local browser check | done | — (mentor) | headless Chrome, test keys: 5/5 (script loaded, token sent on upload, probe tokenless, "Found 2 photos", widget cleaned up) |
+| 8. Fix Vercel TS error in turnstile.guard.ts | done | builder 6 (bot-check) — retired | @vercel/node type check has no realpath, so undici-types (pnpm symlink) did not resolve; added undici-types ~8.9.0 devDependency; Vercel-style repro passes |
+| 9. Preview check | done | — (mentor) | health 200, probe 400 (unchanged), no/fake token 403, /upload 410; logs clean |
