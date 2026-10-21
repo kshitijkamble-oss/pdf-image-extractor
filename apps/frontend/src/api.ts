@@ -1,5 +1,6 @@
 import { uploadPresigned } from '@vercel/blob/client'
 import type { ExtractedPhoto } from '@repo/shared'
+import { getTurnstileToken } from './turnstile'
 
 type ErrorBody = { message?: string } | null
 
@@ -23,12 +24,16 @@ async function isClientUploadConfigured(): Promise<boolean> {
   return response.status !== 501
 }
 
+// @vercel/blob/client does not export BlobError, so the only way to spot this failure is its exact message.
+const PRESIGNED_URL_FAILED = 'Vercel Blob: Failed to retrieve the presigned URL'
+
 async function uploadPdfMultipart(file: File): Promise<ExtractedPhoto[]> {
   const formData = new FormData()
   formData.append('file', file)
 
   const response = await fetch('/api/pdf/upload', {
     method: 'POST',
+    headers: { 'x-turnstile-token': await getTurnstileToken() },
     body: formData,
   })
 
@@ -40,10 +45,17 @@ async function uploadPdfMultipart(file: File): Promise<ExtractedPhoto[]> {
 export async function uploadPdf(file: File): Promise<ExtractedPhoto[]> {
   if (!(await isClientUploadConfigured())) return uploadPdfMultipart(file)
 
+  const turnstileToken = await getTurnstileToken()
   const blob = await uploadPresigned(toBlobPathname(file.name), file, {
     access: 'private',
     handleUploadUrl: '/api/pdf/blob-token',
     contentType: 'application/pdf',
+    headers: { 'x-turnstile-token': turnstileToken },
+  }).catch((error: unknown) => {
+    if (error instanceof Error && error.message === PRESIGNED_URL_FAILED) {
+      throw new Error('Upload failed. Please reload the page and try again.')
+    }
+    throw error
   })
 
   const response = await fetch('/api/pdf/extract', {
