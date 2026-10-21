@@ -178,4 +178,5 @@ Kept by the mentor (main session). See `docs/mentor-mentee.md` section 5.
 | 1. Write README.md | done | builder 1 — retired | facts spot-checked by mentor (503 guard, 20 MB, uploads folder, vercel.json) |
 | 2. Live link check | done | — (mentor) | -frontend and -web 200 at /; -two is the backend |
 | 3. Repo description, topics, homepage | done | — (mentor) | set with gh repo edit; confirmed with gh repo view |
-| 4. Commit, PR, close #52 | in-progress | — (mentor) | PR opened; close #52 after merge |
+| 4. Commit, PR, close #52 | done | — (mentor) | PR #53 merged by user; #52 closed |
+| 5. Reconcile and close out | done | — (mentor) | arc done; backlog done; lint + typecheck pass |

@@ -288,9 +288,11 @@ The app has no login, so bots can get upload tokens. Add a captcha that the serv
 
 ## github-readme  <!-- id: b-20261021-001 -->
 - **tag:** feature
-- **status:** in-progress
+- **status:** done
 - **created:** 2026-10-21
 - **linked-phase:** docs/phases/2026-10-21-github-readme/
 - **gh-issue:** https://github.com/kshitijkamble-oss/pdf-image-extractor/issues/52
 
 The GitHub repo has no README and no description, so its page is empty. Add a README.md (what the app does, live link, how to run it) and set the repo's description and topics.
+
+**Outcome (2026-10-21):** README live on the repo page (PR #53); description, topics and homepage (now the frontend) set with `gh repo edit`.

@@ -3,7 +3,7 @@ topic: github-readme
 started: 2026-10-21
 updated: 2026-10-21
 backlog: b-20261021-001
-status: implement
+status: done
 ---
 
 # github-readme
